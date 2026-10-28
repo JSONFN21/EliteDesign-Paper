@@ -12,8 +12,13 @@
     The aim of RNA Design is to find, within an exponentially large search space,
     a nucleotide sequence that folds into a given target structure. Efficient RNA design could aid in
     the development of RNA-based technologies such as riboswitches and ribozymes. However, 
-    finding sequences that fold into target structure with a high probability remains challenging, 
-    particularly for long and complex RNAs.
+    finding sequences that fold into the target structure with a high probability remains challenging, 
+    particularly for long RNAs. To address this challenge, we introduce an approach that uses the 
+    Cross-Entropy method to iteratively refine a distribution over valid RNA sequences. Our method 
+    outperforms other state-of-the-art methods, achieving an average folding probability of over 0.60 
+    on Eterna100, with a recorded runtime of seven minutes per seed for the full benchmark. It also 
+    scales to longer RNAs, reaching an average target-structure probability of 0.51 on ten long 16S 
+    rRNA targets, compared with 0.20 for SAMFEO, while recording a sevenfold lower average runtime per puzzle.
 \end{abstract}
 
 \end{document}
