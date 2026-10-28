@@ -5,6 +5,9 @@
 
 \date{\today}
 
+\usepackage[none]{hyphenat}
+\usepackage{microtype}
+\emergencystretch=2em
 \begin{document}
 \maketitle
 
@@ -16,9 +19,9 @@
     particularly for long RNAs. To address this challenge, we introduce an approach that uses the 
     Cross-Entropy method to iteratively refine a distribution over valid RNA sequences. Our method 
     outperforms other state-of-the-art methods, achieving an average folding probability of over 0.60 
-    on Eterna100, with a recorded runtime of seven minutes per seed for the full benchmark. It also 
-    scales to longer RNAs, reaching an average target-structure probability of 0.51 on ten long 16S 
-    rRNA targets, compared with 0.20 for SAMFEO, while recording a sevenfold lower average runtime per puzzle.
+    on Eterna100, with a runtime of seven minutes per seed. It also scales to longer RNA structures, reaching 
+    an average folding probability of 0.51 on ten long 16S rRNA targets, compared with 0.20 
+    for SAMFEO, while recording a sevenfold lower average runtime per puzzle.
 \end{abstract}
 
 \end{document}
