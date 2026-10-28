@@ -1,9 +1,11 @@
-\documentclass{article}
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
 
 \title{EliteDesign: Elite-Guided Learning for RNA Design via the Cross-Entropy Method}
 \author{JasonFred Ngwa \and Milan Guatam \and David H. Mathews \and Liang Huang}
 
-\date{\today}
+\date{}
 
 \usepackage[none]{hyphenat}
 \usepackage{microtype}
@@ -17,11 +19,10 @@
     the development of RNA-based technologies such as riboswitches and ribozymes. However, 
     finding sequences that fold into the target structure with high probability remains challenging, 
     particularly for long RNAs. To address this challenge, we introduce an approach that uses the 
-    cross-entropy method to iteratively refine a distribution over valid RNA sequences. Our method outperforms
-    state-of-the-art RNA design methods in average target folding probability, achieving 0.60 on Eterna100,
-    with a runtime of seven minutes for the entire benchmark per random seed. It also scales to
-    longer RNA structures, reaching an average folding probability of 0.51 on 10 16S rRNA targets 
-    ranging from 950 to 1525 nucleotides, compared with 0.20 for SAMFEO, while achieving a lower average
-    runtime per puzzle.
+    cross-entropy method to iteratively refine a distribution over valid RNA sequences. Our method outperforms 
+    the state-of-the-art RNA design method SamplingDesign on Eterna100, achieving a better average target folding probability
+    while being 500 times faster. It also scales to longer RNA structures, achieving 2.55 times the average target folding probability 
+    of SAMFEO on 10 16S rRNA targets ranging from 950 to 1,525 nucleotides, with a 15-fold reduction in average runtime per puzzle.
 \end{abstract}
+
 \end{document}
