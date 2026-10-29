@@ -16,15 +16,14 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-    \normalsize
-    The aim of RNA design is to find, within an exponentially large search space, a nucleotide sequence 
-    that folds into a given target structure. Efficient RNA design could aid in the development of RNA-based 
-    therapeutics such as riboswitches and ribozymes. However, efficiently finding sequences with a high target 
-    folding probability remains challenging, particularly for long RNAs. To address this challenge, we introduce 
-    EliteDesign, an approach that uses the cross-entropy method to iteratively refine a distribution over valid 
-    RNA sequences. Our method outperforms the state-of-the-art RNA design method, SamplingDesign, on Eterna100, achieving a better 
-    average target folding probability while being 500 times faster. EliteDesign also scales to much longer RNA structures.
-    On ten 16S rRNA targets ranging from 950 to 1,525 nucleotides, it achieves an average target folding probability of 0.51 
-    versus 0.20 for SAMFEO while reducing the average runtime per puzzle by a factor of 24.
+    The goal of RNA design is to find, within an exponentially large sequence space, a nucleotide sequence that folds into a specified 
+    target structure. While essential for developing RNA-based therapeutics such as riboswitches and ribozymes, efficiently identifying 
+    sequences with high target folding probability remains challenging, especially for long sequences. Currently, the state-of-the-art method, 
+    SamplingDesign, suffers from extreme computational inefficiency. To address this bottleneck, we present EliteDesign, a novel framework 
+    that leverages the cross-entropy method to iteratively refine a distribution over candidate RNA sequences. On the Eterna100 benchmark,
+     EliteDesign achieves a higher average target folding probability than SamplingDesign while running $500\times$ faster. Furthermore, 
+     EliteDesign scales efficiently to long RNA structures far beyond the reach of SamplingDesign: on ten 16S rRNA targets (950–1,525 nucleotides), 
+     it achieves an average target folding probability of 0.51 versus 0.20 for the strongest scalable baseline, SAMFEO, while accelerating runtime
+      by $24\times$.
 \end{abstract}
 \end{document}
