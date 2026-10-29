@@ -1,8 +1,11 @@
 \documentclass[10pt,letterpaper]{article}
 
 \usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\definecolor{titleblue}{HTML}{178DB5}
+\renewcommand{\abstractname}{\textcolor{titleblue}{\normalsize Abstract}}
 
-\title{EliteDesign: Elite-Guided Learning for RNA Design via the Cross-Entropy Method}
+\title{\textcolor{titleblue}{EliteDesign: Elite-Guided Learning for RNA Design via the Cross-Entropy Method}}
 \author{JasonFred Ngwa \and Milan Guatam \and David H. Mathews \and Liang Huang}
 
 \date{}
@@ -13,6 +16,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
+    \normalsize
     The aim of RNA design is to find, within an exponentially large search space, a nucleotide sequence 
     that folds into a given target structure. Efficient RNA design could aid in the development of RNA-based 
     therapeutics such as riboswitches and ribozymes. However, efficiently finding sequences with a high target 
