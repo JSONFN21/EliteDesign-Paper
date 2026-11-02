@@ -1,0 +1,200 @@
+\section{\textcolor{titleblue}{Methods}}
+\subsection{RNA design problem}
+\subsubsection{Sequences, structures, and valid designs}
+To approach the RNA design problem, we first define the valid design space
+for a target structure. A sequence of length $n$ can be represented as
+$x=x_1\cdots x_n$, where each nucleotide $x_i$ is chosen from $\A=\{\mathrm{A,C,G,U}\}$. Given a target structure
+$y$, we can further restrict the base choices using two sets:
+$\mathcal{P}(y)$ for paired positions and $\mathcal{U}(y)$ for unpaired positions~\citep{tang2026}. Each pair in $\mathcal{P}(y)$
+must be one of the canonical or wobble pairs:
+\begin{equation}
+ \mathcal{C}=\{\mathrm{AU,UA,CG,GC,GU,UG}\}.
+\end{equation}
+The valid design space can then be represented as
+\begin{equation}
+ \begin{split}
+ \X(y)=\{\,&x\in\A^n:\;x_ix_j\in\mathcal{C}\\
+ &\text{for every }(i,j)\in\mathcal{P}(y)\}.
+ \end{split}
+ \label{eq:validspace}
+\end{equation}
+This restriction greatly reduces the design space for structures with many pairs by
+removing incompatible choices, such as C pairing with A. The number of sequences
+in the design space for a target $y$ with $p$ pairs and $u$
+unpaired positions is then
+\begin{equation}
+ |\X(y)|=6^p4^u,\qquad |y|=2p+u.
+\end{equation}
+
+\subsubsection{Target folding probability}
+Now that we have a valid design space for the target $y$,
+we need a way to assess how well a given sequence favors folding
+into the target. To do this, we calculate the target folding probability,
+which is the probability that the sequence folds into the target structure,
+given its ensemble of competing structures. Let $G(x,y)$ be the free energy of
+a sequence $x$ folded into structure $y$, which is calculated using the Turner
+2004 nearest-neighbor energy model~\citep{mathews2004}. The lower the free energy, the more favorable the
+structure is for that sequence. The folding ensemble for sequence $x$ is
+\begin{equation}
+ \mathcal{Y}(x)=\{y': y'\text{ is an allowed structure for }x\}.
+\end{equation}
+This set contains the target structure and all competing folds that the sequence
+can fold into. The total statistical weight of all structures for the sequence
+is given by the partition function~\citep{mccaskill1990},
+\begin{equation}
+ Z(x)=\sum_{y'\in\mathcal{Y}(x)}e^{-G(x,y')/(RT)}.
+ \label{eq:partition}
+\end{equation}
+Here $R$ is the gas constant and $T$ is the temperature;
+the product $RT$ is usually expressed in kcal/mol. Based on this formula,
+the lower the energy of a structure, the more it contributes to the ensemble weight.
+
+Target folding probability can then be defined as
+\begin{equation}
+ P(y\mid x)=\frac{e^{-G(x,y)/(RT)}}{Z(x)}.
+ \label{eq:probability}
+\end{equation}
+This equation divides the target's Boltzmann weight by the total weight of all
+allowed structures, giving the probability that the sequence forms the target under the thermodynamic model.
+
+The primary design objective of EliteDesign is
+\begin{equation}
+ x^\star\in\underset{x\in\X(y)}{\arg\max}\;P(y\mid x).
+ \label{eq:design}
+\end{equation}
+During search we rank candidates by log probability,
+\begin{equation}
+ \ell(x)=\log P(y\mid x)
+ =-\frac{G(x,y)}{RT}-\log Z(x),
+ \label{eq:logprob}
+\end{equation}
+We optimize in log space to avoid underflow when probabilities are very small.
+
+\subsubsection{Normalized ensemble defect}
+Normalized ensemble defect (NED) is the expected fraction of nucleotides whose pairing state
+differs from the target structure $y$, averaged over all folds $y'$ in the
+ensemble~\citep{dirks2004,zadeh2011}. For positions $i$ and $j$, the pairing probability is
+\begin{equation}
+ p_{ij}(x)=\sum_{(i,j)\in\mathcal{P}(y')}P(y'\mid x).
+\end{equation}
+The probability that position $i$ is unpaired is
+\begin{equation}
+ u_i(x)=1-\sum_{j\ne i}p_{ij}(x).
+\end{equation}
+Let $\mathcal{P}$ and $\mathcal{U}$ be the sets containing the target's paired and unpaired positions respectively. Then
+{\small
+\begin{equation}
+ \mathrm{NED}(x)=1-\frac{1}{n}\biggl[
+ 2\textstyle\sum_{(i,j)\in\mathcal{P}}p_{ij}(x)
+ +\textstyle\sum_{i\in\mathcal{U}}u_i(x)\biggr].
+ \label{eq:ned}
+\end{equation}
+}
+Each correct pair is counted twice because it contains two nucleotides.
+
+\subsection{Structure parsing and distribution initialization}
+Following SamplingDesign~\citep{tang2026}, given a target structure in dot-bracket notation, for example
+\[
+\setlength{\arraycolsep}{3pt}
+\begin{array}{cccccccccc}
+ ( & . & ( & . & . & . & ) & . & . & )\\
+ \scriptstyle 1 & \scriptstyle 2 & \scriptstyle 3 &
+ \scriptstyle 4 & \scriptstyle 5 & \scriptstyle 6 &
+ \scriptstyle 7 & \scriptstyle 8 & \scriptstyle 9 &
+ \scriptstyle 10
+\end{array}
+\]
+we parse the structure into four types of variables:
+\begin{itemize}
+\item \textbf{Unpaired variables} with four nucleotide choices: A, C, G, or U.
+  For example, position 5 is an unpaired variable.
+\item \textbf{Paired variables} sampled from {AU, UA, CG, GC, GU, or UG}.
+  For example, positions $(1,10)$ form a paired variable.
+\item \textbf{Mismatch variables} group the two unpaired positions next to the pair that closes
+  a loop, and have $4^2=16$ choices. For example, positions $(4,6)$ form a mismatch variable.
+\item \textbf{Trimismatch variables} group three unpaired positions in a loop, one on one side
+  and two on the other side. These bases are chosen together,
+  giving $4^3=64$ possible combinations. For example, positions $(2,8,9)$ form a trimismatch variable.
+\end{itemize}
+
+\input{figures/structure-plot}
+
+To assign initial probabilities to these variables, we follow the targeted initialization used
+in SamplingDesign~\citep{tang2026}. This initialization favors A at unpaired positions and CG or GC
+at paired positions, with the parameter $\epsilon\in[0,1]$ controlling the strength of this preference.
+For an unpaired variable, the initial probabilities are
+\begin{equation}
+ p(b)=\begin{cases}
+ \epsilon+(1-\epsilon)/4,&b=\mathrm{A},\\
+ (1-\epsilon)/4,&b\in\{\mathrm{C,G,U}\}.
+ \end{cases}
+\end{equation}
+\input{tables/unpaired-initialization}
+
+For a paired variable, the initial probabilities are
+\begin{equation}
+ p(s)=\begin{cases}
+ (1+2\epsilon)/6,&s\in\{\mathrm{CG,GC}\},\\
+ (1-\epsilon)/6,&\text{otherwise, }s\in\mathcal{C}.
+ \end{cases}
+\end{equation}
+\input{tables/paired-initialization}
+Mismatch and trimismatch variables are initialized by multiplying the unpaired probabilities of their bases.
+
+\subsection{Sampling, scoring, and elite weighting}
+\input{figures/sampling-loop}
+At each round, EliteDesign samples $N$ sequences from the current distribution with a
+small amount of uniform mixing, so that every variable choice remains possible:
+\begin{equation}
+ p_{\mathrm{sampling}}=(1-\delta)p_{\mathrm{current}}+\delta U.
+ \label{eq:sampling}
+\end{equation}
+In this equation, $U$ is the uniform distribution for a variable and $\delta$
+is the uniform mixing rate. Each sequence in the sample is scored with
+LinearPartition~\citep{zhang2020} and cached to avoid scoring the same sequence twice.
+The best-scoring sequence is also tracked separately and, at the end of the
+search, is rescored with ViennaRNA for accuracy~\citep{lorenz2011}.
+
+Sequences in a sample are sorted by target probability and the top fraction
+$\rho$ are selected as elites:
+\begin{equation}
+ N_{\mathrm{elite}}=\lceil\rho N\rceil.
+\end{equation}
+
+Each elite is then given a weight based on its NED:
+\begin{equation}
+ w_{\mathrm{elite}}(x)=\frac{1-\mathrm{NED}(x)}
+ {\sum_{j=1}^{N_{\mathrm{elite}}}(1-\mathrm{NED}(x_j))}.
+ \label{eq:weights}
+\end{equation}
+
+\subsection{Distribution updates and stopping criteria}
+From the weighted elites we get the distribution $p_{\mathrm{elites}}$, which we combine with
+the current distribution $p_{\mathrm{current}}$ using the smoothed cross-entropy update~\citep{deboer2005}:
+\begin{equation}
+ p_{\mathrm{updated}}=(1-\alpha)p_{\mathrm{current}}
+ +\alpha p_{\mathrm{elites}}.
+ \label{eq:update}
+\end{equation}
+Here $\alpha$ is the elite update rate, which is set to 0.5 by
+default in our implementation. At each round we track the sequence with the
+highest probability seen so far:
+\begin{equation}
+ P_{\mathrm{best}}=\max_{x\text{ sampled so far}}P(y\mid x).
+\end{equation}
+We also track the moving average over $h$ rounds:
+\begin{equation}
+ P_{\mathrm{avg}}=\frac{1}{h}\sum_{r=1}^{h}P_r,
+\end{equation}
+where $P_r$ is the average target probability in round $r$.
+We stop when both of these conditions hold:
+\begin{enumerate}
+\item The best probability has not improved for $h$ rounds.
+\item The moving average has not improved for $h$ rounds.
+\end{enumerate}
+\input{tables/default-settings}
+\subsection{Algorithm summary}
+Algorithm~\ref{alg:elite} summarizes EliteDesign.
+
+\input{algorithms/elite-guided-design}
+\FloatBarrier

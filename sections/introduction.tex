@@ -1,0 +1,43 @@
+\section{\textcolor{titleblue}{Introduction}}
+
+RNA plays two main roles in cells. It can serve as an information
+carrier, carrying the genetic code needed to make proteins, but it can also
+serve a functional role such as catalyzing chemical reactions or regulating genes~\citep{doudna2002,breaker2012}.
+Recent advances have shown that RNA has huge potential for developing new medicines.
+For example, \citet{rojas2023} showed that personalized mRNA vaccines stimulated immune responses against tumor
+targets in patients with pancreatic cancer. This advancement could open the path toward
+cancer treatments that are tailored to individual patients. Additionally, on the computational side,
+recent methods such as LinearDesign have shown that algorithmic techniques can be used
+to design mRNAs with improved stability, protein production, and immune response~\citep{zhang2023}.
+These advances in RNA technology motivate further work on designing RNA.
+
+RNA design, also called inverse folding, is the task of finding a nucleotide
+sequence that folds into a given target structure~\citep{hofacker1994,dirks2004}. Given a target structure,
+a good RNA design method should find a sequence that favors the target
+over the competing folds in its ensemble. However, this problem is difficult because
+the number of possible sequences for a target grows exponentially with length,
+and each of these sequences can adopt many alternative structures,
+which makes the search especially hard for long RNAs~\citep{tang2026}. Existing methods that optimize
+target probability face limitations in quality, runtime, or both. For example,
+SAMFEO maintains several promising sequences and uses structure-aware mutations to optimize folding probability~\citep{zhou2023},
+but it struggles on difficult and long targets, where the enormous design space
+makes local search prone to getting stuck in local optima.
+On the other hand, SamplingDesign~\citep{tang2026} produces high-quality designs, even for difficult puzzles in
+Eterna100, but it is computationally expensive and too slow to be practical for
+longer RNAs. Finding a high-probability sequence within a practical runtime remains a major challenge.
+
+To address this bottleneck, we present EliteDesign, which uses the cross-entropy method~\citep{rubinstein1999,deboer2005} to
+find RNA sequences with high target probability
+in a computationally efficient way.
+At each iteration, EliteDesign samples from the valid design space, scores the sequences,
+and then picks a set of elite sequences based on target probability.
+It then moves the current distribution toward the distribution described by the elite
+set. During the sampling rounds, sequences are scored with LinearPartition~\citep{zhang2020},
+which estimates folding probability in linear time, and the best final candidates are
+rescored exactly with ViennaRNA~\citep{lorenz2011}.
+
+We benchmark EliteDesign on several datasets and show that it finds higher target
+folding probabilities than the methods we compare against, with the gap widening on
+long RNA sequences. These results show that EliteDesign improves both design quality and
+runtime compared with methods that optimize target folding probability, and allows us to
+find high-probability sequences for much longer RNA structures.

@@ -1,0 +1,37 @@
+\section{Results}
+\label{sec:results}
+\subsection{Eterna100}
+\label{sec:results-eterna}
+We evaluate EliteDesign on Eterna100, a benchmark of 100 puzzles
+from the Eterna game, assembled by Anderson-Lee and
+colleagues~\citep{andersonlee2016}. It contains mostly synthetic RNA secondary
+structures that range from 12 to 400 nucleotides and vary in
+design difficulty, allowing us to compare methods across diverse targets.
+We compare EliteDesign with SamplingDesign~\citep{tang2026}, SAMFEO~\citep{zhou2023},
+and NEMO~\citep{portela2018} (Table~\ref{tab:eterna-results}).
+We run EliteDesign with these settings:
+{\renewcommand\labelenumi{\textbf{\large\arabic{enumi}.}}
+\begin{enumerate}
+\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\setlength{\topsep}{2pt}
+\item Population sizes of 100 and 500, with uniform
+  mixing of 0.2\% and elite update rate $\alpha=0.5$.
+\item Five random seeds per target on a 96-core CPU;
+  for each metric, we select the best seed.
+\item Runtime is the mean time per target across the five seeds.
+\item We use LinearPartition~\citep{zhang2020} for scoring during search
+  and ViennaRNA~\citep{lorenz2011} for final scoring.
+\end{enumerate}}
+
+\onecolumn
+
+\input{tables/eterna-results}
+\input{figures/eterna-plots}
+\input{figures/eterna-structures}
+\clearpage
+
+\subsection{16S rRNA}
+\label{sec:results-16s}
+\input{tables/16s-results}
+\input{figures/16s-plots}
+
+\twocolumn

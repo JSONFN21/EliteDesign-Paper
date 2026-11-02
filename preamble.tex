@@ -1,0 +1,45 @@
+\usepackage[margin=1in]{geometry}
+\setlength{\columnsep}{0.25in}
+\usepackage{xcolor}
+\definecolor{titleblue}{HTML}{178DB5}
+\definecolor{varonecolor}{HTML}{005A9C}
+\definecolor{vartwocolor}{HTML}{B0004B}
+\definecolor{varthreecolor}{HTML}{007A53}
+\definecolor{varfourcolor}{HTML}{B84600}
+\definecolor{varfivecolor}{HTML}{54278F}
+\renewcommand{\abstractname}{\textcolor{titleblue}{\normalsize Abstract}}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{capt-of}
+\usepackage{stfloats}\fnbelowfloat
+\usepackage{amsmath,amssymb,booktabs,float,titlesec,placeins,algorithm,algpseudocode,tikz,graphicx}
+\usetikzlibrary{arrows.meta}
+\providecommand{\A}{\mathcal{A}}
+\providecommand{\X}{\mathcal{X}}
+\setcounter{secnumdepth}{3}
+\titleformat{\section}
+ {\large\bfseries\color{titleblue}}{\thesection}{0.6em}{}
+\titleformat{\subsection}
+ {\normalsize\bfseries\color{black}}{\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}
+ {\normalsize\bfseries\color{black}}{\thesubsubsection}{0.5em}{}
+
+\usepackage[authoryear,round,sort]{natbib}
+\usepackage[colorlinks=true,linkcolor=titleblue,citecolor=blue,urlcolor=blue]{hyperref}
+\newcommand{\figplaceholder}[2]{\fbox{\begin{minipage}[c][#1][c]{0.91\linewidth}\centering\color{titleblue}\bfseries #2\end{minipage}}}
+
+\emergencystretch=2em
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\dblfloatpagefraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\setcounter{dbltopnumber}{3}
+\setcounter{bottomnumber}{3}

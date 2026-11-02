@@ -1,0 +1,60 @@
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[
+  x=1.35cm,y=1.35cm,
+  base/.style={circle,fill=white,line width=1.4pt,
+    minimum size=0.48cm,inner sep=1pt,font=\small\bfseries,text=black},
+  position/.style={font=\scriptsize\bfseries,text=black}
+]
+\filldraw[fill=vartwocolor!12,draw=vartwocolor!65,line width=0.8pt]
+  (-1,0.865)--(1.431,1.365)--(1.431,0.365)--cycle;
+\draw[varfourcolor!28,line width=9pt,line cap=round]
+  (-0.809,2.681)--(0.809,2.681);
+\draw[black!45,line width=1pt]
+  (-0.5,0)--(-1,0.865)--(-0.5,1.73)--(-0.809,2.681)--
+  (0,3.269)--(0.809,2.681)--(0.5,1.73)--
+  (1.431,1.365)--(1.431,0.365)--(0.5,0);
+\draw[varonecolor,line width=2.2pt] (-0.5,0)--(0.5,0);
+\draw[varthreecolor,line width=2.2pt] (-0.5,1.73)--(0.5,1.73);
+\node[font=\footnotesize\bfseries,text=black,fill=white,inner sep=1pt]
+  at (0,-0.32) {$v_1$};
+\node[font=\footnotesize\bfseries,text=black,fill=white,inner sep=1pt]
+  at (0,1.46) {$v_3$};
+\node[font=\scriptsize\bfseries,text=black] at (0.66,0.85) {$v_2$};
+\node[font=\scriptsize\bfseries,text=black] at (0,2.681) {$v_4$};
+\node[base,draw=varonecolor] (n1) at (-0.5,0) {G};
+\node[base,draw=vartwocolor] (n2) at (-1,0.865) {A};
+\node[base,draw=varthreecolor] (n3) at (-0.5,1.73) {C};
+\node[base,draw=varfourcolor] (n4) at (-0.809,2.681) {C};
+\node[base,draw=varfivecolor] (n5) at (0,3.269) {G};
+\node[base,draw=varfourcolor] (n6) at (0.809,2.681) {A};
+\node[base,draw=varthreecolor] (n7) at (0.5,1.73) {G};
+\node[base,draw=vartwocolor] (n8) at (1.431,1.365) {U};
+\node[base,draw=vartwocolor] (n9) at (1.431,0.365) {C};
+\node[base,draw=varonecolor] (n10) at (0.5,0) {C};
+\node[position] at (-0.5,-0.28) {1};
+\node[position] at (-1.26,0.865) {2};
+\node[position] at (-0.78,1.73) {3};
+\node[position] at (-1.06,2.681) {4};
+\node[position] at (0,3.55) {5};
+\node[position] at (1.06,2.681) {6};
+\node[position] at (0.78,1.73) {7};
+\node[position] at (1.69,1.365) {8};
+\node[position] at (1.69,0.365) {9};
+\node[position] at (0.5,-0.28) {10};
+\node[font=\scriptsize\bfseries] at (-1.15,-0.12) {$5'$};
+\node[font=\scriptsize\bfseries] at (1.15,-0.12) {$3'$};
+\end{tikzpicture}
+\smallskip
+
+{\footnotesize
+\begin{tabular}{@{}c@{\,}r@{\quad}l@{\quad}l@{}}
+\textcolor{varonecolor}{\rule{0.65em}{0.65em}} & $v_1$ & Pair & $(1,10)$\\
+\textcolor{vartwocolor}{\rule{0.65em}{0.65em}} & $v_2$ & Trimismatch & $(2,8,9)$\\
+\textcolor{varthreecolor}{\rule{0.65em}{0.65em}} & $v_3$ & Pair & $(3,7)$\\
+\textcolor{varfourcolor}{\rule{0.65em}{0.65em}} & $v_4$ & Mismatch & $(4,6)$\\
+\textcolor{varfivecolor}{\rule{0.65em}{0.65em}} & $v_5$ & Single position & $(5)$
+\end{tabular}}
+\caption{Example of a target structure being split into variables.}
+\label{fig:structureplot}
+\end{figure}

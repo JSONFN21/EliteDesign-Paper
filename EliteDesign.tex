@@ -1,30 +1,31 @@
-\documentclass[10pt,letterpaper]{article}
+\documentclass[10pt,letterpaper,twocolumn]{article}
 
-\usepackage[margin=1in]{geometry}
-\usepackage{xcolor}
-\definecolor{titleblue}{HTML}{178DB5}
-\renewcommand{\abstractname}{\textcolor{titleblue}{\normalsize Abstract}}
+\input{preamble}
 
-\title{\textcolor{titleblue}{\bfseries EliteDesign: Elite-Guided Learning for RNA Design via the Cross-Entropy Method}}
-\author{JasonFred Ngwa \qquad Milan Guatam \qquad David H.~Mathews \qquad Liang Huang\\
-Oregon State University \qquad University of Rochester}
-
+\title{\textcolor{titleblue}{\bfseries EliteDesign: Elite-Guided Learning
+  for RNA Design via the Cross-Entropy Method}}
+\author{JasonFred Ngwa \qquad Milan Gautam \qquad
+  David H.~Mathews \qquad Liang Huang}
 \date{}
 
-\usepackage[none]{hyphenat}
-\usepackage{microtype}
-\emergencystretch=2em
 \begin{document}
-\maketitle
-\begin{abstract}
-    The goal of RNA design is to find, within an exponentially large sequence space, a nucleotide sequence that folds into a specified 
-    target structure. While essential for developing RNA-based therapeutics such as riboswitches and ribozymes, efficiently identifying 
-    sequences with high target folding probability remains challenging, especially for long sequences. Currently, the state-of-the-art method, 
-    SamplingDesign, suffers from extreme computational inefficiency. To address this bottleneck, we present EliteDesign, a novel framework 
-    that leverages the cross-entropy method to iteratively refine a distribution over candidate RNA sequences. On the Eterna100 benchmark,
-     EliteDesign achieves a higher average target folding probability than SamplingDesign while running $500\times$ faster. Furthermore, 
-     EliteDesign scales efficiently to long RNA structures far beyond the reach of SamplingDesign: on ten 16S rRNA targets (950–1,525 nucleotides), 
-     it achieves an average target folding probability of 0.51 versus 0.20 for the strongest scalable baseline, SAMFEO, while accelerating runtime
-      by $24\times$.
-\end{abstract}
+
+\twocolumn[
+  \maketitle
+  \begin{abstract}
+    \input{sections/abstract}
+  \end{abstract}
+  \vspace{1em}
+]
+
+\input{sections/introduction}
+\input{sections/methods}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\renewcommand{\refname}{\textcolor{titleblue}{References}}
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+
 \end{document}

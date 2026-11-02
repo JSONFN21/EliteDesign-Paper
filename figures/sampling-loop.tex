@@ -1,0 +1,30 @@
+\begin{figure*}[!b]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  box/.style 2 args={draw=#1!75,fill=#1!10,rounded corners=3pt,line width=0.8pt,
+    minimum width=#2,minimum height=1.3cm,font=\sffamily,align=center},
+  flow/.style={-{Stealth[length=3.6mm]},line width=1.6pt,black!65}
+]
+\draw[dashed,black!45,line width=0.8pt,rounded corners=8pt,fill=black!5]
+  (3.2,-1.7) rectangle (20.8,1.95);
+\node[font=\sffamily\bfseries\itshape\large,text=black!65] at (12.0,1.5) {Iteration loop};
+\node[box={titleblue}{2.8cm}]     (init) at (0,0)    {\large\bfseries Initialize\\[1pt]\small distribution};
+\node[box={varfourcolor}{2.7cm}]  (gen)  at (4.9,0)  {\large\bfseries Sample\\[1pt]\small $N$ sequences};
+\node[box={varthreecolor}{2.7cm}] (eval) at (8.4,0)  {\large\bfseries Score\\[1pt]\small $P(y\mid x)$};
+\node[box={varfivecolor}{2.7cm}]  (sel)  at (11.9,0) {\large\bfseries Select elites\\[1pt]\small top $\rho$ fraction};
+\node[box={varonecolor}{2.7cm}]   (wt)   at (15.4,0) {\large\bfseries Weight elites\\[1pt]\small by NED};
+\node[box={vartwocolor}{2.7cm}]   (upd)  at (18.9,0) {\large\bfseries Update\\[1pt]\small $\alpha=0.5$};
+\node[box={titleblue}{2.8cm}]     (ret)  at (26.0,0) {\large\bfseries Return best\\[1pt]\small sequence};
+\draw[flow] (init) -- (gen);
+\draw[flow] (gen) -- (eval);
+\draw[flow] (eval) -- (sel);
+\draw[flow] (sel) -- (wt);
+\draw[flow] (wt) -- (upd);
+\draw[flow] (upd.south) -- ++(0,-0.95) -| (gen.south);
+\draw[flow] (upd) -- node[above=1.5mm,font=\sffamily\bfseries\large,text=black!65]{converged} (ret);
+\node[font=\sffamily\bfseries\large,text=black!65] at (4.9,1.0) {+0.2\% uniform};
+\end{tikzpicture}}
+\caption{Overview of the EliteDesign algorithm.}
+\label{fig:loop}
+\end{figure*}

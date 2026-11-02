@@ -1,0 +1,22 @@
+\begin{algorithm}[H]
+\caption{Elite-guided RNA design}
+\label{alg:elite}
+\small
+\begin{algorithmic}[1]
+\State \textbf{Input:} target $y$, initial distribution
+\State $x^\star\gets\mathrm{None}$
+\For{$r=1,\ldots,R_{\max}$}
+    \State Sample $N$ sequences
+    \State Score the sequences
+    \State Update $x^\star$ if any sequence has higher $P(y\mid x)$
+    \State Select $N_{\mathrm{elite}}$ sequences
+    \State Weigh elites
+    \State Update $p_{\mathrm{current}}$
+    \If{stopping criterion is met}
+        \State \textbf{break}
+    \EndIf
+\EndFor
+\State Validate $x^\star$ with ViennaRNA
+\State \Return $x^\star$
+\end{algorithmic}
+\end{algorithm}

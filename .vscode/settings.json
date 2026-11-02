@@ -1,4 +1,49 @@
 {
   "latex-workshop.latex.outDir": "%DIR%/build",
-  "latex-workshop.latex.auxDir": "%DIR%/build"
+  "latex-workshop.latex.auxDir": "%DIR%/build",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk-bibtex",
+      "command": "/Library/TeX/texbin/latexmk",
+      "args": [
+        "-pdf",
+        "-bibtex",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-synctex=1",
+        "-file-line-error",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "pdflatex-direct",
+      "command": "/Library/TeX/texbin/pdflatex",
+      "args": [
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-synctex=1",
+        "-file-line-error",
+        "-output-directory=%OUTDIR%",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "Build PDF with references (latexmk)",
+      "tools": [
+        "latexmk-bibtex"
+      ]
+    },
+    {
+      "name": "Build PDF directly",
+      "tools": [
+        "latexmk-bibtex"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.autoClean.run": "never",
+  "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false
 }
