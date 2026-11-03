@@ -1,31 +1,55 @@
 \documentclass[10pt,letterpaper,twocolumn]{article}
-
 \input{preamble}
 
-\title{\textcolor{titleblue}{\bfseries EliteDesign: Elite-Guided Learning
-  for RNA Design via the Cross-Entropy Method}}
-\author{JasonFred Ngwa \qquad Milan Gautam \qquad
-  David H.~Mathews \qquad Liang Huang}
+\title{\Large\textcolor{titleblue}{EliteDesign: Elite-Guided Learning for RNA Design\\via the Cross-Entropy Method}}
+\author{JasonFred Ngwa$^{1}$ \qquad Milan Gautam$^{1}$ \qquad David H.~Mathews$^{2}$ \qquad Liang Huang$^{1,\dagger}$\\[6pt]
+{$^{1}$School of EECS, Oregon State University, Corvallis, OR 97331, USA}\\
+{$^{2}$Dept.~of Biochemistry \& Biophysics, University of Rochester Medical Center,}\\
+{Rochester, NY 14642, USA}\\
+{$^{\dagger}$Corresponding author}}
 \date{}
 
 \begin{document}
 
-\twocolumn[
-  \maketitle
-  \begin{abstract}
-    \input{sections/abstract}
-  \end{abstract}
-  \vspace{1em}
-]
+\onecolumn
+\begingroup
+\fontfamily{ptm}\selectfont
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+\normalsize
+\input{sections/abstract}
+\end{abstract}
+\noindent\textbf{Keywords:} RNA design; cross-entropy method; gradient-free optimization; ensemble-based optimization; computational efficiency
+\endgroup
+\twocolumn
+\setcounter{page}{1}
 
+\section{Introduction}\label{sec:intro}
 \input{sections/introduction}
-\input{sections/methods}
+
+\section{RNA Design Problem}\label{sec:problem}
+\input{sections/problem}
+
+\section{Continuous Optimization over Sequence Distributions}\label{sec:continuous}
+\input{sections/continuous}
+
+\section{EliteDesign}\label{sec:elitedesign}
+\input{sections/elitedesign}
+
+\section{Results}\label{sec:results}
 \input{sections/results}
+
+\section{Discussion}\label{sec:discussion}
 \input{sections/discussion}
-\input{sections/conclusion}
 
 \renewcommand{\refname}{\textcolor{titleblue}{References}}
 \bibliographystyle{abbrvnat}
 \bibliography{references}
+
+\clearpage
+\onecolumn
+\appendix
+\input{sections/supplement}
 
 \end{document}

@@ -1,0 +1,83 @@
+\subsection{Valid design space}\label{sec:designspace}
+A sequence \vecx of length $n$ is a string $x_1x_2\dots x_n$ over the nucleotide alphabet $\nucset\defeq\{\nucA,\nucC,\nucG,\nucU\}$. We describe a pseudoknot-free secondary structure \vecy by a balanced dot-bracket string of the same length, where each dot marks an unpaired nucleotide and each matching pair of brackets marks a base pair. The set $\unpaired(\vecy)$ collects the unpaired positions and the set $\pairs(\vecy)$ collects the base pairs. For example, consider the structure in Fig.~\ref{fig:structureplot}, shown here with its position numbers.
+\[
+\setlength{\arraycolsep}{2.5pt}
+\vecy=\;
+\begin{array}{cccccccccc}
+\texttt{(} & \texttt{.} & \texttt{(} & \texttt{.} & \texttt{.} & \texttt{.} & \texttt{)} & \texttt{.} & \texttt{.} & \texttt{)}\\[-1pt]
+\scriptstyle 1 & \scriptstyle 2 & \scriptstyle 3 & \scriptstyle 4 & \scriptstyle 5 & \scriptstyle 6 & \scriptstyle 7 & \scriptstyle 8 & \scriptstyle 9 & \scriptstyle 10
+\end{array}
+\]
+Position 1 pairs with position 10, and position 3 pairs with position 7, so $\pairs(\vecy)=\{(1,10),(3,7)\}$. The remaining positions are unpaired, so $\unpaired(\vecy)=\{2,4,5,6,8,9\}$.
+
+RNA design starts from a target structure, which we write as \vecystar, and asks for a sequence that folds into it. Not every sequence is a candidate, because the two nucleotides of a target pair must be able to pair with each other, as a Watson--Crick--Franklin or wobble pair from $\pairset\defeq\{\nucC\nucG,\nucG\nucC,\nucA\nucU,\nucU\nucA,\nucG\nucU,\nucU\nucG\}$. We therefore search only the valid design space,
+\begin{equation}
+\begin{aligned}
+\GENX(\vecystar)\defeq\{\vecx\in\nucset^{|\vecystar|}\mid{}&\forall(i,j)\in\pairs(\vecystar),\\
+&x_ix_j\in\pairset\},
+\end{aligned}
+\label{eq:validspace}
+\end{equation}
+which contains
+\begin{equation}
+|\GENX(\vecystar)|=4^{|\unpaired(\vecystar)|}\cdot 6^{|\pairs(\vecystar)|}\ll 4^{|\vecystar|}
+\label{eq:genxsize}
+\end{equation}
+sequences. After ruling out incompatible choices, such as C pairing with A, the search space shrinks by a great deal. However, the number of sequences still grows exponentially as the target gets longer, so enumerating the whole design space is impractical.
+
+\subsection{Boltzmann probability}\label{sec:boltzmann}
+Now that we have a valid design space for the target, we need a way to assess how well a given sequence favors folding into it. To do this, we calculate the Boltzmann probability, which is the probability that the sequence folds into the target, given its competing structures.
+
+Let $\GEN(\vecx)$ be the ensemble of \vecx, meaning every secondary structure that \vecx can adopt. Under the Turner 2004 nearest-neighbor model~\citep{mathews2004}, each structure $\vecy\in\GEN(\vecx)$ has a Gibbs free energy change $\freeenergy(\vecx,\vecy)$, and lower values mean greater stability. The partition function adds up a Boltzmann factor for each structure in the ensemble~\citep{mccaskill1990}.
+\begin{equation}
+Q(\vecx)\defeq\sum_{\vecy\in\GEN(\vecx)}e^{-\freeenergy(\vecx,\vecy)/RT},
+\label{eq:partition}
+\end{equation}
+where $T$ is the absolute temperature and $R$ is the molar gas constant. Structures with lower free energy contribute more to this sum. The Boltzmann probability of a structure \vecy is its share of the sum.
+\begin{equation}
+p(\vecy\mid\vecx)=\frac{e^{-\freeenergy(\vecx,\vecy)/RT}}{Q(\vecx)}.
+\label{eq:probability}
+\end{equation}
+
+\subsection{Normalized Ensemble Defect}\label{sec:ned}
+Boltzmann probability only rewards the exact target, so a competing structure that misses by one nucleotide counts the same as one that looks nothing like the target. Normalized Ensemble Defect (NED) grades these competitors instead. It is the expected fraction of nucleotides whose pairing state differs from the target~\citep{dirks2004,zadeh2011}.
+
+To compute it, let $p_{ij}$ be the total probability of the ensemble structures that contain the pair $(i,j)$, and let $q_i$ be the probability that nucleotide $i$ is unpaired. The positional defect $\epsilon_i(\vecx,\vecystar)$ of a nucleotide is the probability that it is not in its target state, which is $1-q_i$ for an unpaired target position and $1-p_{ij}$ for a position whose target partner is $j$. NED is the average of these defects over the sequence.
+\begin{equation}
+\NED(\vecx,\vecystar)\defeq\frac{1}{|\vecx|}\sum_{i=1}^{|\vecx|}\epsilon_i(\vecx,\vecystar).
+\label{eq:ned}
+\end{equation}
+A value of 0 means that every nucleotide is always in its target state.
+
+\subsection{MFE metrics}\label{sec:mfe}
+RNA design benchmarks such as Eterna100 are traditionally judged by the lowest energy structure of a sequence, so we report these metrics as well. The following equation gives the minimum free energy (MFE) structure of a sequence \vecx, which is the structure in its ensemble with the lowest free energy.
+\begin{equation}
+\MFE(\vecx)\defeq\argmin_{\vecy\in\GEN(\vecx)}\freeenergy(\vecx,\vecy).
+\end{equation}
+Several structures can share the lowest free energy, so we write $\MFEs(\vecx)$ for the set of all of them. A sequence \vecx is an MFE solution if the target structure \vecystar is in $\MFEs(\vecx)$, and a uMFE (unique MFE) solution if \vecystar is the only structure in $\MFEs(\vecx)$.
+
+We use two metrics to measure how close a sequence is to being an MFE solution. The first is the structural distance, which counts the nucleotides that fold differently in two structures \vecy and $\vecy'$.
+\begin{equation}
+\begin{aligned}
+d(\vecy,\vecy')\defeq{}&|\vecy|-2\cdot|\pairs(\vecy)\cap\pairs(\vecy')|\\
+&-|\unpaired(\vecy)\cap\unpaired(\vecy')|.
+\end{aligned}
+\label{eq:dist}
+\end{equation}
+We use this equation to compare $\MFE(\vecx)$, the MFE structure of \vecx, with \vecystar, the target structure for which we are optimizing. The second metric is the free energy gap. It measures the difference between the free energy of \vecystar and the free energy of $\MFE(\vecx)$.
+\begin{equation}
+\begin{aligned}
+\DDG(\vecx,\vecystar)\defeq{}&\freeenergy(\vecx,\vecystar)\\
+&-\freeenergy(\vecx,\MFE(\vecx))\geq 0.
+\end{aligned}
+\label{eq:ddg}
+\end{equation}
+A sequence with a structural distance of 0 or a free energy gap of 0 is an MFE solution. A free energy gap of 0 does not make it a uMFE solution, because another structure can have the same free energy as \vecystar.
+
+\subsection{Objective function}\label{sec:statement}
+During optimization, any of these metrics (Boltzmann probability, NED, structural distance, and free energy gap), or any other relevant metric, can be used as an objective function $f(\vecx,\vecystar)$. RNA design is then the search for
+\begin{equation}
+\vecxstar=\argmin_{\vecx\in\GENX(\vecystar)}f(\vecx,\vecystar).
+\label{eq:design}
+\end{equation}
+When Boltzmann probability is used, optimization is typically done in log space to avoid underflow.

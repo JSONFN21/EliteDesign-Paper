@@ -1,0 +1,28 @@
+\begin{figure}[!p]
+\centering
+\resizebox{\linewidth}{!}{\sffamily
+{(a)} \begin{tabular}{c|c|c|c|c|c|c}
+\texttt{\#99} (364 nt) & Boltzmann prob. & ensemble defect & struct. distance & energy gap & & \\
+``Shooting Star'' & $p(\vecystar \mid \vecx)$$(\uparrow)$ & \NED$(\vecx, \vecystar)$$(\downarrow)$ & $d(\MFE(\vecx), \vecystar)$$(\downarrow)$ & \DDG$(\vecx, \vecystar)$$(\downarrow)$ & is \MFE & is uMFE \\
+\hline
+EliteDesign ($N=500$) & {\boldmath$6.16 \times 10^{-7}$} & \textbf{0.107} & \textbf{20} & \textbf{3.8 kcal/mol} & No & No \\
+SamplingDesign & $5.50 \times 10^{-10}$ & 0.173 & \textbf{20} & 7.8 kcal/mol & No & No \\
+\hline
+Tianshuo's Ceiling & $5.15 \times 10^{-4}$ & --- & --- & --- & --- & --- \\
+\end{tabular}}\\[5pt]
+\includegraphics[width=0.9\linewidth]{figures/structures/legend}\\[3pt]
+{\sffamily\small
+\begin{tabular}{@{}c@{\hspace{0.01\linewidth}}c@{\hspace{0.01\linewidth}}c@{}}
+(b) Target \vecystar & (c) \MFE structure of EliteDesign ($N=500$) & (d) \MFE structure of SamplingDesign \\[2pt]
+\includegraphics[height=4.85in]{figures/structures/target_99} &
+\includegraphics[height=4.85in]{figures/structures/structure_99_elite} &
+\includegraphics[height=4.85in]{figures/structures/structure_99_sampling}
+\end{tabular}\\[3pt]
+\begin{tabular}{@{}c@{\hspace{0.02\linewidth}}c@{}}
+(e) Base-pairing probabilities, EliteDesign ($N=500$) & (f) Base-pairing probabilities, SamplingDesign \\[1pt]
+\includegraphics[width=0.49\linewidth]{figures/structures/arcs_99_elite} &
+\includegraphics[width=0.49\linewidth]{figures/structures/arcs_99_sampling}
+\end{tabular}}
+\caption{}
+\label{fig:eterna-structure-99}
+\end{figure}

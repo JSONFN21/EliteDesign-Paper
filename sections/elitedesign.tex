@@ -1,0 +1,88 @@
+\input{figures/sampling-loop}
+
+\subsection{The cross-entropy method}\label{sec:cem}
+The cross-entropy method~\citep{rubinstein1999,deboer2005} is a gradient-free optimization method that was initially developed for rare-event simulation and later applied to optimization problems. It repeats two steps, sampling candidates from a distribution and then moving the distribution toward the best candidates.
+
+For the second step, let \ELITES be the set of elites, which are the best sequences in the current sample, and give each elite $\vecx\in\ELITES$ a weight $w_{\mathrm{elite}}(\vecx)$. The method aims to form the distribution $p_{\mathrm{elites}}$ under which the weighted elites are most likely.
+\begin{equation}
+p_{\mathrm{elites}}=\argmax_{p}\sum_{\vecx\in\ELITES}w_{\mathrm{elite}}(\vecx)\log p(\vecx).
+\label{eq:cefit}
+\end{equation}
+Here $p$ is any distribution of the form in Eq.~\ref{eq:factorization}, and $p(\vecx)$ is the probability that it gives to the sequence \vecx. Maximizing this sum is the same as minimizing the cross-entropy between the elite weights and $p$.
+\begin{equation}
+p_{\mathrm{elites}}=\argmin_{p}H(w_{\mathrm{elite}},p).
+\label{eq:crossentropy}
+\end{equation}
+Here $H$ is the cross-entropy, which is defined as
+\begin{equation}
+H(w_{\mathrm{elite}},p)\defeq-\sum_{\vecx\in\ELITES}w_{\mathrm{elite}}(\vecx)\log p(\vecx).
+\label{eq:hdefinition}
+\end{equation}
+So $p_{\mathrm{elites}}$ is the distribution with the lowest cross-entropy to the weighted elites, which gives the method its name. In the basic method, all elites count equally and $p_{\mathrm{elites}}$ directly becomes the next distribution. However, the cross-entropy method can also work with weighted elites and smoothed updates, as discussed in \citet{deboer2005}. We apply the method in this way, by weighing the elites (Sec.~\ref{sec:elites}) and smoothing the update (Sec.~\ref{sec:update}).
+
+The cross-entropy method is a good candidate for the RNA design problem because this update is simple. Our distribution is a product of independent local distributions (Eq.~\ref{eq:factorization}), so for each variable, the new probability of a choice is the summed weight of the elites that made it. No gradient is needed, and one update can make a large shift to the distribution.
+
+\subsection{Objective functions}\label{sec:objectives}
+In EliteDesign, we take advantage of the fact that the cross-entropy method can apply more than one objective function. We use one objective, \frank, to rank the samples and select the elites, and a second objective, \fweight, to weigh the elites. This allows us to optimize for two different objectives at the same time, where higher is better for both.
+\begin{equation}
+f(\vecx,\vecystar)\defeq
+\begin{cases}
+\frank(\vecx,\vecystar) & \text{to rank}\\
+\fweight(\vecx,\vecystar) & \text{to weigh}
+\end{cases}
+\label{eq:pair}
+\end{equation}
+The two objectives are interchangeable, so \frank and \fweight can each be based on any of the metrics in Sec.~\ref{sec:problem}, or on any other function of a sequence, since neither needs to be differentiable. In this work, we rank by the log of the Boltzmann probability and weigh by one minus NED.
+\begin{equation}
+f(\vecx,\vecystar)=
+\begin{cases}
+\frank=\log p(\vecystar\mid\vecx) &\hspace{-0.7em} \text{to rank}\\
+\fweight=1-\NED(\vecx,\vecystar) &\hspace{-0.7em} \text{to weigh}
+\end{cases}
+\label{eq:ourpair}
+\end{equation}
+We found that optimizing both objectives together, rather than Boltzmann probability alone or NED alone, works better in practice. Boltzmann probability decides which sequences the distribution learns from, while NED makes the distribution learn more from elites with a lower ensemble defect. This produces a new distribution that favors sequences with a high Boltzmann probability and a low ensemble defect.
+
+\subsection{Initialization and sampling}\label{sec:sampling}
+To initialize the sampling distribution of our coupled variables, we favor \nucA{} at unpaired positions and \nucC\nucG{} or \nucG\nucC{} at paired positions, and we initialize mismatch and trimismatch variables by multiplying the unpaired probabilities of their bases.
+
+At each round $t$, EliteDesign samples $N$ sequences from the current distribution $\pcurrent^{(t)}$ with a small amount of uniform mixing, so that every variable choice remains possible.
+\begin{equation}
+p_{\mathrm{sampling}}=(1-\delta)\,\pcurrent^{(t)}+\delta U.
+\label{eq:sampling}
+\end{equation}
+In this equation, $U$ is the uniform distribution for a variable and $\delta$ is the uniform mixing rate. The mixing is only used for sampling and does not change the stored distribution. We score each sequence in the sample with LinearPartition~\citep{zhang2020}, which gives both the Boltzmann probability and NED, cache the scores to avoid scoring the same sequence twice, and track the best sequence found so far.
+
+\subsection{Selection of elites}\label{sec:elites}
+We sort the sequences in a sample by \frank, which in this work ranks them by Boltzmann probability, select the top 10\% as the elites \ELITES, and give each elite \vecx a weight based on \fweight,
+\begin{equation}
+w_{\mathrm{elite}}(\vecx)=\frac{\fweight(\vecx,\vecystar)}{\sum_{\vecx'\in\ELITES}\fweight(\vecx',\vecystar)},
+\label{eq:weights}
+\end{equation}
+where the sum in the denominator runs over every elite $\vecx'$ in \ELITES, so the weights add up to 1. We use $\fweight(\vecx,\vecystar)=1-\NED(\vecx,\vecystar)$, so that elites with a lower NED influence the distribution update more.
+
+\subsection{Distribution updates and stopping criteria}\label{sec:update}
+After weighing the elites, we get the distribution $p_{\mathrm{elites}}$ of Eq.~\ref{eq:cefit}, which we then combine with the current distribution using the smoothed cross-entropy update~\citep{deboer2005}.
+\begin{equation}
+\pcurrent^{(t+1)}=(1-\alpha)\,\pcurrent^{(t)}+\alpha\,p_{\mathrm{elites}}.
+\label{eq:update}
+\end{equation}
+Here $\alpha$ is the elite update rate, which is set to 0.5 by default in our implementation, so each round moves the distribution halfway to the elites. The main goal of these updates is to move the distribution toward a region in which we are likely to find the best sequence.
+
+At each round, we track two quantities, the highest value of the ranking objective \frank seen so far, and the mean value of \frank over the sample, averaged over the last $h$ rounds. We call $h$ the patience. We stop when both of the following conditions hold, or when a limit on rounds or scored sequences is reached.
+\begin{enumerate}
+\item The highest value of \frank has not improved for $h$ rounds.
+\item The moving average of \frank has not improved for $h$ rounds.
+\end{enumerate}
+
+\subsection{Returning the best sequence}\label{sec:return}
+The final output of EliteDesign is a single sequence, which is the best one it has seen during the search. Writing $\SAMPLES^{(t)}$ for the sequences scored in round $t$, this is
+\begin{equation}
+\vecxstar=\argmax_{\vecx\in\bigcup_t\SAMPLES^{(t)}}\frank(\vecx,\vecystar).
+\label{eq:return}
+\end{equation}
+Here we return the best sequence under \frank, the objective used for ranking, but the method can also return the best sequence found for any other metric. Because LinearPartition only approximates the Boltzmann probability, we check this choice after the search is done. We rescore \vecxstar, the sequence with the best NED, and the most probable sequence under the final distribution exactly with ViennaRNA~\citep{lorenz2011}, and we return the one with the highest Boltzmann probability.
+
+\input{algorithms/elite-guided-design}
+
+\input{tables/eterna-results}

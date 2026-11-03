@@ -1,0 +1,27 @@
+\begin{figure}[!p]
+\centering
+\resizebox{\linewidth}{!}{\sffamily
+{(a)} \begin{tabular}{c|c|c|c|c|c|c}
+\texttt{\#77} (105 nt) & Boltzmann prob. & ensemble defect & struct. distance & energy gap & & \\
+``Hard Y and a bit more'' & $p(\vecystar \mid \vecx)$$(\uparrow)$ & \NED$(\vecx, \vecystar)$$(\downarrow)$ & $d(\MFE(\vecx), \vecystar)$$(\downarrow)$ & \DDG$(\vecx, \vecystar)$$(\downarrow)$ & is \MFE & is uMFE \\
+\hline
+EliteDesign ($N=500$) & \textbf{0.4523} & \textbf{0.0178} & \textbf{0} & \textbf{0.0 kcal/mol} & \textbf{Yes} & \textbf{Yes} \\
+SamplingDesign & 0.3664 & 0.0195 & 3 & \textbf{0.0 kcal/mol} & \textbf{Yes} & No \\
+\hline
+Tianshuo's Ceiling & 0.5037 & --- & --- & --- & --- & --- \\
+\end{tabular}}\\[5pt]
+\includegraphics[width=0.9\linewidth]{figures/structures/legend}\\[3pt]
+{\sffamily\small
+\begin{tabular}{@{}c@{\hspace{0.02\linewidth}}c@{}}
+(b) \MFE structure of EliteDesign ($N=500$) ($=$ \vecystar) & (c) \MFE structure of SamplingDesign \\[2pt]
+\includegraphics[width=0.49\linewidth]{figures/structures/structure_77_elite} &
+\includegraphics[width=0.49\linewidth]{figures/structures/structure_77_sampling}
+\end{tabular}\\[3pt]
+\begin{tabular}{@{}c@{\hspace{0.02\linewidth}}c@{}}
+(d) Base-pairing probabilities, EliteDesign ($N=500$) & (e) Base-pairing probabilities, SamplingDesign \\[1pt]
+\includegraphics[width=0.49\linewidth]{figures/structures/arcs_77_elite} &
+\includegraphics[width=0.49\linewidth]{figures/structures/arcs_77_sampling}
+\end{tabular}}
+\caption{}
+\label{fig:eterna-structure-77}
+\end{figure}

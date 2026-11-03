@@ -1,17 +1,20 @@
-\begin{table}[H]
+\begin{table}[h]
 \centering\small
-\caption{Default settings of EliteDesign.}
+\caption{}
 \label{tab:defaults}
 \begin{tabular}{@{}lll@{}}
 \toprule
 Setting & Symbol & Default\\
 \midrule
 Samples per round & $N$ & 500\\
-Elite fraction & $\rho$ & 0.1\\
+Elite fraction & --- & 10\%\\
 Elite update rate & $\alpha$ & 0.5\\
 Uniform mixing & $\delta$ & 0.002\\
 Initialization bias & $\epsilon$ & 0.75\\
-Stopping condition & $h$ & 25\\
+Patience & $h$ & 25\\
+Maximum rounds & --- & 2,000\\
+Maximum scored sequences & --- & 5,000,000\\
+LinearPartition beam size & $b$ & 250\\
 \bottomrule
 \end{tabular}
 \end{table}

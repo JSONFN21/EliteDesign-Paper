@@ -1,4 +1,4 @@
-\usepackage[margin=1in]{geometry}
+\usepackage[letterpaper,left=1in,right=1in,top=1in,bottom=1.08in]{geometry}
 \setlength{\columnsep}{0.25in}
 \usepackage{xcolor}
 \definecolor{titleblue}{HTML}{178DB5}
@@ -7,39 +7,84 @@
 \definecolor{varthreecolor}{HTML}{007A53}
 \definecolor{varfourcolor}{HTML}{B84600}
 \definecolor{varfivecolor}{HTML}{54278F}
-\renewcommand{\abstractname}{\textcolor{titleblue}{\normalsize Abstract}}
 
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
-\usepackage{microtype}
-\usepackage{capt-of}
+\usepackage[protrusion=false,expansion=true,stretch=20,shrink=0,step=2]{microtype}
 \usepackage{stfloats}\fnbelowfloat
-\usepackage{amsmath,amssymb,booktabs,float,titlesec,placeins,algorithm,algpseudocode,tikz,graphicx}
+\usepackage{amsmath,mathtools,amssymb,bm,booktabs,array,float,titlesec,placeins,algorithm,algpseudocode,tikz,graphicx,enumitem,caption}
 \usetikzlibrary{arrows.meta}
-\providecommand{\A}{\mathcal{A}}
-\providecommand{\X}{\mathcal{X}}
+\usepackage{xspace}
+
+\setlist{itemsep=1pt,topsep=2pt,leftmargin=1.4em}
+\captionsetup{font=normalsize,labelfont=bf,skip=4pt}
+
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{{#1}}}\xspace}
+\newcommand{\vecx}{\ensuremath{\vec{x}}\xspace}
+\newcommand{\vecy}{\ensuremath{\vec{y}}\xspace}
+\newcommand{\vecystar}{\ensuremath{\vecy^\star}\xspace}
+\newcommand{\vecxstar}{\ensuremath{\vecx^\star}\xspace}
+\newcommand{\GEN}{\ensuremath{\mathcal{Y}}\xspace}
+\newcommand{\GENX}{\ensuremath{\mathcal{X}}\xspace}
+\newcommand{\SAMPLES}{\ensuremath{\mathcal{S}}\xspace}
+\newcommand{\ELITES}{\ensuremath{\mathcal{E}}\xspace}
+\newcommand{\defeq}{\ensuremath{\stackrel{\Delta}{=}}\xspace}
+\newcommand{\nucA}{\ensuremath{\text{\tt A}}}
+\newcommand{\nucU}{\ensuremath{\text{\tt U}}}
+\newcommand{\nucC}{\ensuremath{\text{\tt C}}}
+\newcommand{\nucG}{\ensuremath{\text{\tt G}}}
+\newcommand{\nucset}{\ensuremath{\mathcal{N}}\xspace}
+\newcommand{\pairset}{\ensuremath{\mathcal{P}}\xspace}
+\newcommand{\freeenergy}{\ensuremath{\Delta\,\! G^{\scriptstyle\circ\!}}\xspace}
+\newcommand{\DDG}{\ensuremath{\Delta \freeenergy}\xspace}
+\newcommand{\pairs}{\ensuremath{\mathit{pairs}}\xspace}
+\newcommand{\unpaired}{\ensuremath{\mathit{unpaired}}\xspace}
+\newcommand{\mismatches}{\ensuremath{\mathit{mismatches}}\xspace}
+\newcommand{\trimismatches}{\ensuremath{\mathit{trimismatches}}\xspace}
+\newcommand{\NED}{\ensuremath{\text{NED}}\xspace}
+\newcommand{\MFE}{\ensuremath{\text{MFE}}\xspace}
+\newcommand{\MFEs}{\ensuremath{\text{MFEs}}\xspace}
+\newcommand{\obj}{\ensuremath{\mathcal{J}}\xspace}
+\newcommand{\pcurrent}{\ensuremath{p_{\mathrm{current}}}\xspace}
+\newcommand{\py}{\ensuremath{p_{\vecy}}\xspace}
+\newcommand{\pu}{\ensuremath{p^{\mathrm{u}}}\xspace}
+\newcommand{\pp}{\ensuremath{p^{\mathrm{p}}}\xspace}
+\newcommand{\pmm}{\ensuremath{p^{\mathrm{m}}}\xspace}
+\newcommand{\ptm}{\ensuremath{p^{\mathrm{tm}}}\xspace}
+\newcommand{\frank}{\ensuremath{f_{\mathrm{r}}}\xspace}
+\newcommand{\fweight}{\ensuremath{f_{\mathrm{w}}}\xspace}
+\newcommand{\argmax}{\operatornamewithlimits{\mathrm{argmax}}}
+\newcommand{\argmin}{\operatornamewithlimits{\mathrm{argmin}}}
+\newcommand{\E}{\ensuremath{\mathbb{E}}}
+
 \setcounter{secnumdepth}{3}
 \titleformat{\section}
- {\large\bfseries\color{titleblue}}{\thesection}{0.6em}{}
+ {\large\bfseries\color{titleblue}\raggedright}{\thesection}{0.6em}{}
 \titleformat{\subsection}
- {\normalsize\bfseries\color{black}}{\thesubsection}{0.5em}{}
+ {\normalsize\bfseries\color{black}\raggedright}{\thesubsection}{0.5em}{}
 \titleformat{\subsubsection}
  {\normalsize\bfseries\color{black}}{\thesubsubsection}{0.5em}{}
 
 \usepackage[authoryear,round,sort]{natbib}
-\usepackage[colorlinks=true,linkcolor=titleblue,citecolor=blue,urlcolor=blue]{hyperref}
-\newcommand{\figplaceholder}[2]{\fbox{\begin{minipage}[c][#1][c]{0.91\linewidth}\centering\color{titleblue}\bfseries #2\end{minipage}}}
+\usepackage[hypertexnames=false,colorlinks=true,linkcolor=titleblue,citecolor=blue,urlcolor=blue]{hyperref}
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{#1}}
 
-\emergencystretch=2em
-\hyphenpenalty=10000
-\exhyphenpenalty=10000
+\emergencystretch=0.5em
+\hyphenpenalty=50
+\exhyphenpenalty=50
+\tolerance=1000
+\hyphenation{Elite-Design Sampling-Design Linear-Partition Lazy-Outside Linear-Decompose Linear-Design Vienna-RNA SAMFEO NEMO Eterna}
 \raggedbottom
 \clubpenalty=10000
 \widowpenalty=10000
 \displaywidowpenalty=10000
+\renewcommand{\topfraction}{0.95}
 \renewcommand{\dbltopfraction}{0.95}
 \renewcommand{\textfraction}{0.05}
-\renewcommand{\dblfloatpagefraction}{0.95}
+\renewcommand{\floatpagefraction}{0.85}
+\renewcommand{\dblfloatpagefraction}{0.85}
 \renewcommand{\bottomfraction}{0.95}
 \setcounter{dbltopnumber}{3}
+\setlength{\dbltextfloatsep}{12pt plus 2pt minus 2pt}
 \setcounter{bottomnumber}{3}

@@ -1,26 +1,29 @@
-\begin{table}[H]
+\begin{table*}[t]
 \centering
-\renewcommand{\arraystretch}{1.35}
+\renewcommand{\arraystretch}{1.06}
 \setlength{\tabcolsep}{2pt}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccccc@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccccc@{}}
 \toprule
 \textbf{Method}
-& \shortstack{\textbf{Mean}\\\boldmath$p(y\mid x)$ $\uparrow$}
-& \shortstack{\textbf{Geom. mean}\\\boldmath$p(y\mid x)$ $\uparrow$}
+& \shortstack{\textbf{N}}
+& \shortstack{\textbf{Mean}\\\boldmath$p(\vecystar\mid\vecx)$ $\uparrow$}
+& \shortstack{\textbf{Geom. mean}\\\boldmath$p(\vecystar\mid\vecx)$ $\uparrow$}
 & \shortstack{\textbf{NED}\\$\downarrow$}
-& \shortstack{\textbf{Structural}\\\textbf{distance} $\downarrow$}
-& \shortstack{\textbf{Mean energy}\\\textbf{gap} $\Delta\Delta G^\circ$ $\downarrow$}
+& \shortstack{\textbf{Struct.}\\\textbf{dist.} $\downarrow$}
+& \shortstack{\textbf{Energy}\\\textbf{gap} $\downarrow$}
 & \shortstack{\textbf{MFE/}\\\textbf{uMFE} $\uparrow$}
-& \shortstack{\textbf{Time (s)}\\$\downarrow$} \\
+& \shortstack{\textbf{Time per}\\\textbf{structure}\\\textbf{(s)} $\downarrow$} \\
+\midrule 
+EliteDesign & 100 & 0.6032 & 0.5601 & 0.03145 & 1.62 & 0.525 & 78/74 & \textbf{4.21} \\
+EliteDesign & 500 & \textbf{0.6105} & \textbf{0.5825} & \textbf{0.03015} & \textbf{1.50} & \textbf{0.5024} & \textbf{81}/\textbf{77} & 11.99 \\
 \midrule
-EliteDesign100 & 0.6032 & 0.5601 & 0.03145 & 1.62 & 0.525 & 78/74 & \textbf{4.21} \\
-EliteDesign500 & \textbf{0.6105} & \textbf{0.5825} & \textbf{0.03015} & \textbf{1.50} & \textbf{0.5024} & \textbf{81}/\textbf{77} & 11.99 \\
+SamplingDesign & 2500 & 0.5950 & 0.5225 & 0.03518 & 2.15 & 0.72 & 80/76 & 2133 \\
+SAMFEO & - & 0.581 & 0.167 & 0.043 & 4.57 & 2.48 & 77/74 & --- \\
+NEMO & - & 0.271 & 0.083 & 0.098 & 1.93 & 1.31 & 79/\textbf{77} & --- \\
 \midrule
-SamplingDesign & 0.5950 & 0.5225 & 0.03518 & 2.15 & 0.72 & 80/76 & 2160 \\
-SAMFEO & 0.581 & 0.167 & 0.043 & 4.57 & 2.48 & 77/74 & 279.1 \\
-NEMO & 0.271 & 0.083 & 0.098 & 1.93 & 1.31 & 79/\textbf{77} & --- \\
+Tianshuo's Ceiling & - & 0.7406 & 0.8545 & --- & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular*}
-\caption{}
+\caption{Results on Eterna100. \textbf{Bold} marks the best value. Each metric is selected independently across five seeds and over the sequences found during optimization, so MFE and uMFE count the puzzles where any sampled sequence is a solution, as in SamplingDesign~\citep{tang2026}. The geometric mean excludes the 18 proven undesignable puzzles. Baseline quality values are from \citet{tang2026}. The times compare SamplingDesign with EliteDesign run with minimal bookkeeping, tracking only the best $p(\vecystar\mid\vecx)$ and the best NED, both on a 96-core AMD CPU.}
 \label{tab:eterna-results}
-\end{table}
+\end{table*}

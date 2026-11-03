@@ -1,13 +1,13 @@
-\begin{table}[H]
+\begin{table*}[t]
 \centering
-\renewcommand{\arraystretch}{1.25}
+\renewcommand{\arraystretch}{1.05}
 \setlength{\tabcolsep}{4pt}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{lrccccccccc}
+\begin{tabular}{lr|ccc|ccc|ccc}
 \toprule
-& & \multicolumn{3}{c}{\textbf{Target probability} $p(y\mid x)$ $\uparrow$} & \multicolumn{3}{c}{\textbf{NED} $\downarrow$} & \multicolumn{3}{c}{\textbf{Time (min)} $\downarrow$} \\
+& & \multicolumn{3}{c|}{\textbf{Boltzmann probability} $p(\vecystar\mid\vecx)$ $\uparrow$} & \multicolumn{3}{c|}{\textbf{NED} $\downarrow$} & \multicolumn{3}{c}{\textbf{Time (min)} $\downarrow$} \\
 \cmidrule(lr){3-5}\cmidrule(lr){6-8}\cmidrule(lr){9-11}
-\textbf{Target} & \textbf{nt} & SAMFEO & \shortstack{EliteDesign\\100} & \shortstack{EliteDesign\\500} & SAMFEO & \shortstack{EliteDesign\\100} & \shortstack{EliteDesign\\500} & SAMFEO & \shortstack{EliteDesign\\100} & \shortstack{EliteDesign\\500} \\
+\textbf{Target} & \textbf{nt} & SAMFEO & \shortstack{EliteDesign\\($N{=}100$)} & \shortstack{EliteDesign\\($N{=}500$)} & SAMFEO & \shortstack{EliteDesign\\($N{=}100$)} & \shortstack{EliteDesign\\($N{=}500$)} & SAMFEO & \shortstack{EliteDesign\\($N{=}100$)} & \shortstack{EliteDesign\\($N{=}500$)} \\
 \midrule
 1 & 950 & 0.290 & \textbf{0.575} & 0.570 & 0.0026 & 0.0013 & \textbf{0.0012} & 287 & \textbf{9.8} & 17.1 \\
 2 & 954 & 0.511 & 0.773 & \textbf{0.779} & 0.0018 & \textbf{0.0006} & \textbf{0.0006} & 285 & \textbf{8.6} & 22.8 \\
@@ -23,6 +23,6 @@
 Mean &  & 0.202 & 0.510 & \textbf{0.520} & 0.0036 & 0.0013 & \textbf{0.0012} & 946 & \textbf{39.4} & 66.0 \\
 \bottomrule
 \end{tabular}}
-\caption{16S rRNA results.}
+\caption{Results on ten 16S rRNA targets. In each row, the bold values are the best scores for each metric. $N$ is the number of sequences sampled per round. SAMFEO's times are from \citet{zhou2026fastdesign}.}
 \label{tab:16s-results}
-\end{table}
+\end{table*}
