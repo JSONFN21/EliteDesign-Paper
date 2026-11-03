@@ -1,6 +1,5 @@
 \subsection{Evaluation setup}\label{sec:setup}
-We compare EliteDesign to SamplingDesign~\citep{tang2026}, SAMFEO~\citep{zhou2023},
-and NEMO~\citep{portela2018}.
+We test EliteDesign on two datasets, Eterna100 and 16S rRNA. On Eterna100, we compare EliteDesign to SamplingDesign~\citep{tang2026}, SAMFEO~\citep{zhou2023}, and NEMO~\citep{portela2018}, and on 16S rRNA, we compare it to SAMFEO.
 We run EliteDesign with the following settings.
 \begin{enumerate}
 \item Population sizes of $N=100$ and $N=500$, with uniform
@@ -9,20 +8,20 @@ We run EliteDesign with the following settings.
   for each metric, we select the best seed.
 \item We use LinearPartition~\citep{zhang2020} for scoring during search
   and ViennaRNA~\citep{lorenz2011} for final scoring.
-\item As in SamplingDesign~\citep{tang2026}, each metric is selected independently over the sequences found during optimization, so each column may be evaluated on different sequences.
+\item As in SamplingDesign~\citep{tang2026}, we report the best value of each metric over all sampled sequences.
 \end{enumerate}
 To keep the runtime comparison fair, we ran both EliteDesign and SamplingDesign on a 96-core AMD CPU. On the 16S targets, EliteDesign and SAMFEO were both run on 96-core CPUs, and SAMFEO's times are from \citet{zhou2026fastdesign}.
 
-We also report an upper bound on Boltzmann probability from LinearDecompose~\citep{zhou2026}, which we call Tianshuo's Ceiling. It bounds the Boltzmann probability of any sequence, so it shows how much room may be left on each target.
+We also report an upper bound on Boltzmann probability from LinearDecompose~\citep{zhou2026}, which we call the probability ceiling. It bounds the Boltzmann probability of any sequence, so it shows how much room may be left on each target.
 
 \subsection{Eterna100}\label{sec:results-eterna}
-We evaluate EliteDesign on Eterna100, a benchmark of 100 puzzles
+The Eterna100 dataset is a benchmark of 100 puzzles
 from the Eterna game, assembled by Anderson-Lee and
 colleagues~\citep{andersonlee2016}. It contains mostly synthetic RNA secondary
 structures that range from 12 to 400 nucleotides and vary in
 design difficulty, allowing us to compare methods across diverse targets.
 
-Table~\ref{tab:eterna-results} shows that EliteDesign with $N=500$ gives the best mean and geometric mean Boltzmann probability, NED, structural distance, energy gap, and number of MFE solutions, and ties NEMO for the most uMFE solutions, while running $178\times$ faster than SamplingDesign. Even with $N=100$, EliteDesign beats SamplingDesign on all of these metrics except MFE and uMFE solutions, while running about $500\times$ faster.
+Table~\ref{tab:eterna-results} shows that EliteDesign with $N=500$ gives the best scores on all quality metrics, and ties NEMO for uMFE solutions, while running $178\times$ faster than SamplingDesign. Even with $N=100$, EliteDesign beats SamplingDesign on all of these metrics except MFE and uMFE solutions, while running about $500\times$ faster.
 
 Fig.~\ref{fig:eterna-advantage} compares EliteDesign with $N=500$ and SamplingDesign on individual puzzles. EliteDesign finds a higher Boltzmann probability on 65 puzzles and a lower one on 13. The other 22 puzzles lie on an axis of the plot, because their difference in Boltzmann probability or NED is at most $10^{-5}$. The majority of this gain comes from long puzzles. On the 50 longest puzzles, EliteDesign wins on 44 and loses on none, while on the 50 shortest it wins on 21 and loses on 13, by small margins.
 

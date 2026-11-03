@@ -1,12 +1,12 @@
 \subsection{Prior work on sequence distributions}\label{sec:relaxation}
 Previously, RNA design was mostly approached with local search methods such as SAMFEO~\citep{zhou2023} and NEMO~\citep{portela2018}. These methods hold on to a few candidate sequences and improve them through small mutations. However, the design space grows exponentially with length, so these mutations can only reach a tiny part of it.
 
-To address this, \citet{matthies2023} replaced the candidate sequences with a probability distribution over sequences, which is optimized with gradient descent. SamplingDesign~\citep{tang2026} then restricted this distribution, which we write as $\py(\cdot)$, to the valid design space $\GENX(\vecystar)$. Its goal is then to minimize the expected value of the objective function $f(\vecx,\vecystar)$ under the distribution.
+To address this, \citet{matthies2023} replaced the candidate sequences with a probability distribution over sequences, which is optimized with gradient descent. SamplingDesign~\citep{tang2026} then restricted this distribution, which they write as $\py(\cdot)$, to the valid design space $\GENX(\vecystar)$. Their goal is then to minimize the expected value of the objective function $f(\vecx,\vecystar)$ under the distribution.
 \begin{equation}
 \min_{\py}\;\obj,\quad\text{where }\obj\defeq\E_{\vecx\sim\py(\cdot)}\left[f(\vecx,\vecystar)\right].
 \label{eq:minimize}
 \end{equation}
-It approximates this expected value with an average over a set of sampled sequences \SAMPLES.
+They approximate this expected value with an average over a set of sampled sequences \SAMPLES.
 \begin{equation}
 \obj\approx\frac{1}{|\SAMPLES|}\sum_{\vecx\in\SAMPLES}f(\vecx,\vecystar).
 \label{eq:expected}
@@ -15,7 +15,7 @@ If the distribution puts all of its probability on one sequence \vecx, then \obj
 
 \subsection{Coupled-variable distributions}\label{sec:variables}
 \input{figures/structure-plot}
-To build this distribution, we turn the target structure into variables. Each variable is a group of positions whose nucleotides are chosen together, and choosing them together is what we mean by coupling. We couple positions in the same way as SamplingDesign~\citep{tang2026}, which creates the four types of variables in Fig.~\ref{fig:structureplot}, namely unpaired positions, paired positions, mismatches, and trimismatches, with 4, 6, 16, and 64 choices. Paired positions are coupled so that every sampled pair is valid, and mismatches and trimismatches are coupled because the energy model scores these unpaired nucleotides together. Each variable has its own local distribution, and the probability of a sequence is the product of these local distributions.
+To build this distribution, we turn the target structure into variables. Each variable is a group of positions whose nucleotides are chosen together, which we describe as coupling. We couple positions in the same way as SamplingDesign~\citep{tang2026}, which creates the four types of variables in Fig.~\ref{fig:structureplot}, namely unpaired positions, paired positions, mismatches, and trimismatches, with 4, 6, 16, and 64 choices. Paired positions are coupled so that every sampled pair is valid, and mismatches and trimismatches are coupled because the energy model scores these unpaired nucleotides together. Each variable has its own local distribution, and the probability of a sequence is the product of these local distributions.
 \begin{equation}
 \renewcommand{\arraystretch}{2.25}
 \begin{array}{@{}r@{\;}>{\displaystyle}l@{}}
@@ -34,6 +34,6 @@ SamplingDesign showed that optimizing this distribution produces high-quality de
 \nabla_{\py}\obj^{(t)}\approx\frac{1}{|\SAMPLES|}\sum_{\vecx\in\SAMPLES}\nabla_{\py}\log\py(\vecx)\,f(\vecx,\vecystar).
 \label{eq:gradient}
 \end{equation}
-This gradient is an average over all samples, so every step must score all of them ($|\SAMPLES|=2500$ by default). Scoring a sample means running LinearPartition~\citep{zhang2020} on it, and this accounts for over 99\% of SamplingDesign's runtime~\citep{tang2026}, because scoring a large number of sequences is expensive even though LinearPartition itself is efficient. The gradient also only gives a direction, so the distribution moves a small amount at each step (a learning rate of 0.01 with up to 2,000 steps by default). As a result, SamplingDesign takes a long time to run, especially on longer puzzles, where a single step can take over 20 seconds~\citep{tang2026}.
+This estimated gradient is an average over all samples, so every sample must be scored at each step ($|\SAMPLES|=2500$ by default). Scoring a sample means running LinearPartition~\citep{zhang2020} on it, and this accounts for over 99\% of SamplingDesign's runtime~\citep{tang2026}, because scoring a large number of sequences is expensive even though LinearPartition itself is efficient. The gradient also only gives a direction, so the distribution moves a small amount at each step (a learning rate of 0.01 with up to 2,000 steps by default). As a result, SamplingDesign takes a long time to run, especially on longer puzzles, where a single step can take over 20 seconds~\citep{tang2026}.
 
-In other words, the cost of SamplingDesign depends heavily on how many sequences it scores, rather than on computing the gradient itself. This motivates the question of whether a distribution can learn from fewer samples and larger updates, possibly without a gradient at all.
+In other words, the runtime of SamplingDesign depends heavily on the number of sequences scored, rather than on computing the gradient itself. This motivates the question of whether a distribution can learn from fewer samples and larger updates, possibly without a gradient at all.

@@ -21,9 +21,9 @@ SamplingDesign & 2500 & 0.5950 & 0.5225 & 0.03518 & 2.15 & 0.72 & 80/76 & 2133 \
 SAMFEO & - & 0.581 & 0.167 & 0.043 & 4.57 & 2.48 & 77/74 & --- \\
 NEMO & - & 0.271 & 0.083 & 0.098 & 1.93 & 1.31 & 79/\textbf{77} & --- \\
 \midrule
-Tianshuo's Ceiling & - & 0.7406 & 0.8545 & --- & --- & --- & --- & --- \\
+Probability ceiling & - & 0.7406 & 0.8545 & --- & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular*}
-\caption{Results on Eterna100. \textbf{Bold} marks the best value. Each metric is selected independently across five seeds and over the sequences found during optimization, so MFE and uMFE count the puzzles where any sampled sequence is a solution, as in SamplingDesign~\citep{tang2026}. The geometric mean excludes the 18 proven undesignable puzzles. Baseline quality values are from \citet{tang2026}. The times compare SamplingDesign with EliteDesign run with minimal bookkeeping, tracking only the best $p(\vecystar\mid\vecx)$ and the best NED, both on a 96-core AMD CPU.}
+\caption{Results on Eterna100. As in SamplingDesign~\citep{tang2026}, we report the best value of each metric across five seeds and all sequences sampled during optimization, so MFE and uMFE count the puzzles where any sampled sequence is a solution. The geometric mean excludes the 18 proven undesignable puzzles. The scores for SamplingDesign, SAMFEO, and NEMO are from \citet{tang2026}. The times compare SamplingDesign with EliteDesign run with minimal bookkeeping, tracking only the best $p(\vecystar\mid\vecx)$ and the best NED.}
 \label{tab:eterna-results}
 \end{table*}

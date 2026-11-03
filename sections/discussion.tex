@@ -9,7 +9,7 @@ method achieves higher Boltzmann probability on other RNA design datasets such a
 and RNAsolo~\citep{adamczyk2022}.
 
 \subsection{Why EliteDesign works}\label{sec:why}
-EliteDesign keeps the backbone of SamplingDesign by searching for a high-probability sequence with a distribution over the design space. However, it changes how this distribution learns. SamplingDesign averages a gradient over all of its samples and takes a small step, whereas EliteDesign learns only from the best samples and moves halfway to them in one update. As a result, it needs far fewer scoring calls to LinearPartition. For example, on Eterna100 with $N=500$, EliteDesign samples about 61,000 sequences on average and takes about 120 rounds, whereas SamplingDesign samples about 4.35 million sequences and takes about 1,740 rounds.
+EliteDesign keeps the backbone of SamplingDesign by searching for a high-probability sequence with a distribution over the design space. However, it changes how this distribution learns. SamplingDesign averages a gradient over all of its samples and takes a small step, whereas EliteDesign focuses on learning from the best samples and moves the distribution strongly toward them in one update. As a result, it needs far fewer scoring calls to LinearPartition. For example, on Eterna100 with $N=500$, EliteDesign samples about 61,000 sequences on average and takes about 120 rounds, whereas SamplingDesign samples about 4.35 million sequences and takes about 1,740 rounds.
 
 EliteDesign also takes advantage of optimizing for two objectives, as shown in Eq.~\ref{eq:pair}, where either objective can be replaced without changing the algorithm. Since neither needs a gradient, even an objective that is not differentiable can be used.
 
@@ -23,7 +23,7 @@ Despite these gains, EliteDesign has some limitations.
   can cause it to favor weaker candidates and miss better ones.
   Exact scoring at the end checks the final candidates but cannot recover sequences
   missed during search.
-\item Tianshuo's Ceiling shows that room remains on many targets, for example on Snowflake 4, where EliteDesign reaches 47\% of the ceiling. However, a large gap can come either from the design or from a loose bound, so it does not prove that a better sequence exists.
+\item The probability ceiling shows that room remains on many targets, for example on Snowflake 4, where EliteDesign reaches 47\% of the ceiling. However, a large gap can come either from the design or from a loose bound, so it does not prove that a better sequence exists.
 \end{enumerate}
 
 \subsection{Ablation study}\label{sec:ablation}

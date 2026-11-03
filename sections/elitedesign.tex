@@ -81,7 +81,7 @@ The final output of EliteDesign is a single sequence, which is the best one it h
 \vecxstar=\argmax_{\vecx\in\bigcup_t\SAMPLES^{(t)}}\frank(\vecx,\vecystar).
 \label{eq:return}
 \end{equation}
-Here we return the best sequence under \frank, the objective used for ranking, but the method can also return the best sequence found for any other metric. Because LinearPartition only approximates the Boltzmann probability, we check this choice after the search is done. We rescore \vecxstar, the sequence with the best NED, and the most probable sequence under the final distribution exactly with ViennaRNA~\citep{lorenz2011}, and we return the one with the highest Boltzmann probability.
+Here we return the best sequence under \frank, the objective used for ranking, but the method can also return the best sequence found for any other metric, such as NED or structural distance. Because LinearPartition only approximates the Boltzmann probability, we check this choice after the search is done. We rescore \vecxstar, the sequence with the best NED, and the most probable sequence under the final distribution exactly with ViennaRNA~\citep{lorenz2011}, and we return the one with the highest Boltzmann probability.
 
 \input{algorithms/elite-guided-design}
 
