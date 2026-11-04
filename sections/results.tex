@@ -10,7 +10,7 @@ We run EliteDesign with the following settings.
   and ViennaRNA~\citep{lorenz2011} for final scoring.
 \item As in SamplingDesign~\citep{tang2026}, we report the best value of each metric over all sampled sequences.
 \end{enumerate}
-To keep the runtime comparison fair, we ran both EliteDesign and SamplingDesign in parallel on a 96-core AMD EPYC 9474F CPU, each in its fastest layout (Table~\ref{tab:supp-sample-size}). On the 16S targets, EliteDesign ran on a 96-core AMD EPYC 9655 CPU, and SAMFEO's times are from \citet{zhou2026fastdesign}, who used an AMD EPYC 9474F CPU.
+To keep the runtime comparison fair, we ran both EliteDesign and SamplingDesign in parallel on a 96-core AMD EPYC 9474F CPU. On the 16S targets, EliteDesign ran on a 96-core AMD EPYC 9655 CPU, and SAMFEO's times are from \citet{zhou2026fastdesign}, who used an AMD EPYC 9474F CPU.
 
 We also report an upper bound on Boltzmann probability from LinearDecompose~\citep{zhou2026}, which we call the probability ceiling. It bounds the Boltzmann probability of any sequence, so it shows how much room may be left on each target.
 
