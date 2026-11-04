@@ -1,0 +1,18 @@
+\begin{table}[H]
+\centering\small
+\renewcommand{\arraystretch}{1.05}
+\caption{Ablation of the settings on Eterna100 with $N=500$, changing one default at a time.}
+\label{tab:supp-ablation-method}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccc@{}}
+\toprule
+\textbf{Setting} & \textbf{Mean} $p(\vecystar\mid\vecx)$ $\uparrow$ & \textbf{Geo.} $p(\vecystar\mid\vecx)$ $\uparrow$ & \textbf{NED} $\downarrow$ & \textbf{Rounds} $\downarrow$ & \textbf{Sequences} $\downarrow$ \\
+\midrule
+EliteDesign (defaults) & \textbf{0.6105} & \textbf{0.5825} & 0.03015 & 121 & 60{,}743 \\
+\midrule
+No smoothing ($\alpha=1$) & 0.6094 & 0.5747 & 0.03052 & 109 & 54{,}726 \\
+No uniform mixing ($\delta=0$) & 0.5976 & 0.5251 & 0.03347 & \textbf{103} & \textbf{51{,}720} \\
+Uniform initialization ($\epsilon=0$) & 0.6029 & 0.5473 & 0.03053 & 149 & 74{,}485 \\
+Elite fraction 5\% & 0.6099 & 0.5745 & \textbf{0.03007} & 118 & 59{,}165 \\
+\bottomrule
+\end{tabular*}
+\end{table}

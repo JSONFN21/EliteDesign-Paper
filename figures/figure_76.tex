@@ -1,14 +1,14 @@
 \begin{figure}[!p]
 \centering
 \resizebox{\linewidth}{!}{\sffamily
-{(a)} \begin{tabular}{c|c|c|c|c|c|c}
-\texttt{\#76} (393 nt) & Boltzmann prob. & ensemble defect & struct. distance & energy gap & & \\
-``Snowflake 3'' & $p(\vecystar \mid \vecx)$$(\uparrow)$ & \NED$(\vecx, \vecystar)$$(\downarrow)$ & $d(\MFE(\vecx), \vecystar)$$(\downarrow)$ & \DDG$(\vecx, \vecystar)$$(\downarrow)$ & is \MFE & is uMFE \\
+{(a)} \begin{tabular}{c|c|c|c|c|c|c|c}
+\texttt{\#76} (393 nt) & Boltzmann prob. & ensemble defect & struct. distance & energy gap & & & \\
+``Snowflake 3'' & $p(\vecystar \mid \vecx)$$(\uparrow)$ & \NED$(\vecx, \vecystar)$$(\downarrow)$ & $d(\MFE(\vecx), \vecystar)$$(\downarrow)$ & \DDG$(\vecx, \vecystar)$$(\downarrow)$ & is \MFE & is uMFE & designable \\
 \hline
-EliteDesign ($N=500$) & \textbf{0.1504} & \textbf{0.0355} & \textbf{0} & \textbf{0.0 kcal/mol} & \textbf{Yes} & \textbf{Yes} \\
-SamplingDesign & 0.0444 & 0.0531 & \textbf{0} & \textbf{0.0 kcal/mol} & \textbf{Yes} & \textbf{Yes} \\
+EliteDesign ($N=500$) & \textbf{0.1504} & \textbf{0.0355} & \textbf{0} & \textbf{0.0 kcal/mol} & \textbf{Yes} & \textbf{Yes} & \multirow{2}{*}{Yes} \\
+SamplingDesign & 0.0444 & 0.0531 & \textbf{0} & \textbf{0.0 kcal/mol} & \textbf{Yes} & \textbf{Yes} & \\
 \hline
-Probability ceiling & 0.7611 & --- & --- & --- & --- & --- \\
+Probability ceiling & 0.7611 & --- & --- & --- & --- & --- & --- \\
 \end{tabular}}\\[5pt]
 \includegraphics[width=0.9\linewidth]{figures/structures/legend}\\[3pt]
 {\sffamily\small
@@ -22,6 +22,6 @@ Probability ceiling & 0.7611 & --- & --- & --- & --- & --- \\
 \includegraphics[width=0.49\linewidth]{figures/structures/arcs_76_elite} &
 \includegraphics[width=0.49\linewidth]{figures/structures/arcs_76_sampling}
 \end{tabular}}
-\caption{}
+\caption{This figure shows the sequences with the highest Boltzmann probability from EliteDesign ($N=500$) and SamplingDesign on Puzzle \texttt{\#76} (``Snowflake 3''), which is a designable puzzle. (a) The scores of each design and a probability upper bound on $p(\vecystar\mid\vecx)$~\citep{zhou2026}. (b)--(c) The MFE structure of each design, which is \vecystar. Nucleotides are colored by positional defect. For these MFE predictions, all pairs also belong to \vecystar, and the shade of blue indicates the probability, with darker being higher. (d)--(e) Base-pairing probabilities, where blue arcs are the pairs that match between a structure $\vecy'$ in the ensemble and \vecystar, orange arcs are matching pairs with a probability under 0.1, and red arcs are the pairs of $\vecy'$ that do not match \vecystar. Darker arcs have higher probability.}
 \label{fig:eterna-structure-76}
 \end{figure}

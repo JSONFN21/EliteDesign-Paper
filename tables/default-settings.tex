@@ -1,18 +1,13 @@
 \begin{table}[h]
 \centering\small
-\caption{}
-\label{tab:defaults}
-\begin{tabular}{@{}lll@{}}
+
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccccc@{}}
 \toprule
-Setting & Symbol & Default\\
+& \shortstack{Samples per\\round $N$} & \shortstack{Elite\\fraction} & \shortstack{Elite update\\rate $\alpha$} & \shortstack{Uniform\\mixing $\delta$} & \shortstack{Initialization\\bias $\epsilon$} & \shortstack{Patience\\$h$} & \shortstack{LinearPartition\\beam size $b$} \\
 \midrule
-Samples per round & $N$ & 500\\
-Elite fraction & --- & 10\%\\
-Elite update rate & $\alpha$ & 0.5\\
-Uniform mixing & $\delta$ & 0.002\\
-Initialization bias & $\epsilon$ & 0.75\\
-Patience & $h$ & 25\\
-LinearPartition beam size & $b$ & 250\\
+Default & 500 & 10\% & 0.5 & 0.002 & 0.75 & 25 & 250 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
+\caption{Default settings of EliteDesign for all datasets. EliteDesign with $N=100$ only changes $N$. The initialization bias $\epsilon$ controls how much we favor A at unpaired positions and CG and GC at paired positions.}
+\label{tab:defaults}
 \end{table}

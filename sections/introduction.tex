@@ -1,5 +1,5 @@
 RNA plays two main roles in cells. It can serve as an information
-carrier, carrying the genetic code needed to make proteins, but it can also
+carrier, carrying the encoded message needed to make proteins, but it can also
 serve a functional role such as catalyzing chemical reactions or regulating genes~\citep{doudna2002,breaker2012}.
 Recent advances have shown that RNA has huge potential for developing new medicines.
 For example, \citet{rojas2023} showed that personalized mRNA vaccines stimulated immune responses against tumor
@@ -10,7 +10,7 @@ to design mRNAs with improved stability, protein production, and immune response
 These advances in RNA technology motivate further work on designing RNA.
 
 RNA design, also called inverse folding, is the task of finding a nucleotide
-sequence that folds into a given target structure~\citep{hofacker1994,dirks2004}. Given a target structure,
+sequence that folds into a given target structure~\citep{hofacker1994,dirks2004}. Given a target secondary structure,
 a good RNA design method should find a sequence that favors the target
 over the competing folds in its ensemble. However, this problem is difficult because
 the number of possible sequences for a target grows exponentially with length,
@@ -21,11 +21,11 @@ SAMFEO maintains several promising sequences and uses structure-aware mutations 
 but it struggles on difficult and long targets, where the enormous design space
 makes local search prone to getting stuck in local optima.
 On the other hand, SamplingDesign~\citep{tang2026} produces high-quality designs, even for difficult puzzles in
-Eterna100, by running gradient descent on a distribution over the valid sequences, but it is computationally expensive and too slow to be practical for
+the Eterna100 benchmark set~\citep{andersonlee2016}, by running gradient descent on a distribution over the valid sequences, but it is computationally expensive and too slow to be practical for
 longer RNAs. Finding a high-probability sequence within a practical runtime remains a major challenge.
 
 To address this bottleneck, we present EliteDesign, a gradient-free method that uses the cross-entropy method~\citep{rubinstein1999,deboer2005} to
-find RNA sequences with high Boltzmann probability
+find RNA sequences that fold to a user-specified secondary structure with high Boltzmann probability
 in a computationally efficient way.
 At each iteration, EliteDesign samples from the valid design space, scores the sequences,
 and then picks a set of elite sequences based on Boltzmann probability.

@@ -41,7 +41,7 @@ f(\vecx,\vecystar)=
 \end{cases}
 \label{eq:ourpair}
 \end{equation}
-We found that optimizing both objectives together, rather than Boltzmann probability alone or NED alone, works better in practice. Boltzmann probability decides which sequences the distribution learns from, while NED makes the distribution learn more from elites with a lower ensemble defect. This produces a new distribution that favors sequences with a high Boltzmann probability and a low ensemble defect.
+We found that the ranking objective matters most. Ranking by Boltzmann probability gives much better results than ranking by NED, and weighing the elites by one minus NED adds a small gain on top of this (Sec.~\ref{sec:ablation}). Boltzmann probability decides which sequences the distribution learns from, while NED makes the distribution learn slightly more from elites with more correct pairs.
 
 \subsection{Initialization and sampling}\label{sec:sampling}
 To initialize the sampling distribution of our coupled variables, we favor \nucA{} at unpaired positions and \nucC\nucG{} or \nucG\nucC{} at paired positions, and we initialize mismatch and trimismatch variables by multiplying the unpaired probabilities of their bases.
@@ -76,7 +76,7 @@ At each round, we track two quantities, the highest value of the ranking objecti
 \end{enumerate}
 
 \subsection{Returning the best sequence}\label{sec:return}
-The final output of EliteDesign is a single sequence, which is the best one it has seen during the search. Writing $\SAMPLES^{(t)}$ for the sequences scored in round $t$, this is
+The final output of EliteDesign is a single sequence, which is the best one that it has seen during the search. Writing $\SAMPLES^{(t)}$ for the sequences scored in round $t$, this is
 \begin{equation}
 \vecxstar=\argmax_{\vecx\in\bigcup_t\SAMPLES^{(t)}}\frank(\vecx,\vecystar).
 \label{eq:return}

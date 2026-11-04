@@ -1,0 +1,24 @@
+\begin{table}[H]
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc@{}}
+\toprule
+\textbf{Method}
+& \textbf{N}
+& \shortstack{\textbf{Mean}\\\boldmath$p(\vecystar\mid\vecx)$ $\uparrow$}
+& \shortstack{\textbf{Geom. mean}\\\boldmath$p(\vecystar\mid\vecx)$ $\uparrow$}
+& \shortstack{\textbf{NED}\\$\downarrow$}
+& \shortstack{\textbf{Sequences}\\\textbf{scored} $\downarrow$}
+& \shortstack{\textbf{Time per}\\\textbf{structure (s)} $\downarrow$} \\
+\midrule
+EliteDesign & 100 & 0.5513 & 0.5687 & 0.04186 & \textbf{19{,}280} & \textbf{3.9} \\
+EliteDesign & 500 & \textbf{0.5641} & \textbf{0.6236} & \textbf{0.03893} & 61{,}874 & 11.8 \\
+\midrule
+SamplingDesign & 100 & 0.5168 & 0.1726 & 0.06868 & 145{,}394 & 153.6 \\
+SamplingDesign & 500 & 0.5343 & 0.4537 & 0.05182 & 805{,}870 & 412.5 \\
+SamplingDesign & 2500 & 0.5490 & 0.5758 & 0.04566 & 4{,}407{,}800 & 1978.0 \\
+\bottomrule
+\end{tabular*}
+\caption{Ablation study of the sample size $N$ of EliteDesign and SamplingDesign, with one seed on 50 Eterna100 puzzles. The puzzles are chosen at random from four length groups, with 13 of 12 to 67 nucleotides, 13 of 67 to 104, 12 of 105 to 214, and 12 of 258 to 400. Both methods ran on a 96-core AMD EPYC 9474F CPU.}
+\label{tab:supp-sample-size}
+\end{table}
