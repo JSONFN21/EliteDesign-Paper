@@ -11,8 +11,8 @@
     \State $\ELITES\gets$ the top 10\% of \SAMPLES by \frank
     \State compute $w_{\mathrm{elite}}$ on \ELITES \Comment{Eq.~\ref{eq:weights}}
     \State update $\pcurrent^{(t+1)}$ toward $p_{\mathrm{elites}}$ \Comment{Eq.~\ref{eq:update}}
-    \State score the most probable sequence
-    \State update \vecxstar if it has higher \frank
+%    \State score the most probable sequence
+%    \State update \vecxstar if it has higher \frank
 \EndFor
 \State rescore the final candidates with ViennaRNA
 \State \Return \vecxstar
