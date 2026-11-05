@@ -2,7 +2,7 @@ In this work, we introduced EliteDesign, an RNA design framework that uses the
 gradient-free cross-entropy method to find high-probability RNA sequences for a given target structure.
 Our method beats the state-of-the-art SamplingDesign on Eterna100 in both
 speed and quality, and we show large gains over SAMFEO on the ten
-16S-MFE targets while remaining much faster per puzzle. We further show that this method addresses a gap in current RNA design
+\sixteenS{} targets while remaining much faster per puzzle. We further show that this method addresses a gap in current RNA design
 methods by enabling the design of sequences longer than 1,000 nucleotides with relatively high
 Boltzmann probability compared with other methods. We also show that our
 method achieves higher Boltzmann probability on other RNA design datasets such as Rfam~\citep{taneda2011,kalvari2021}
@@ -15,25 +15,26 @@ EliteDesign also optimizes two objectives (Eq.~\ref{eq:pair}), and either one ca
 
 \subsection{Limitations}\label{sec:limitations}
 Despite these gains, our work has some limitations.
+{\hyphenpenalty=50\exhyphenpenalty=50
 \begin{enumerate}
 \item EliteDesign uses the same initialization strategy for every target, which may not work
   equally well for all structures. During optimization, it can concentrate too early on
   a narrow set of sequences and miss better solutions. This may explain the small losses to SamplingDesign on some short puzzles.
-\item EliteDesign uses LinearPartition to estimate Boltzmann probabilities during search. Errors in these estimates
+\item During search, EliteDesign estimates Boltzmann probabilities with LinearPartition. Errors in these estimates
   can cause it to favor weaker candidates and miss better ones.
   Exact scoring at the end checks the final candidates but cannot recover sequences
-  missed during search. A larger LinearPartition beam or exact ViennaRNA scoring avoids this, at a higher cost.
+  missed during search. Using a larger LinearPartition beam or exact ViennaRNA scoring during optimization can avoid this, but it comes at the cost of a longer runtime.
 \item The probability ceiling shows that room remains on many targets, for example on Snowflake 4, where EliteDesign reaches 47\% of the ceiling. However, a large gap can come either from the design or from a loose bound, so it does not prove that a better sequence exists.
-\end{enumerate}
+\end{enumerate}\par}
 
 \subsection{Ablation study}\label{sec:ablation}
 \input{tables/ablation-objectives}
-Table~\ref{tab:ablation-objectives} shows an ablation study that compares six pairs of ranking and weighing objectives on Eterna100 with $N=500$. We see that most of the gain comes from ranking by Boltzmann probability. Ranking by Boltzmann probability wins against the best pair that ranks by NED on 43 puzzles, loses on 4, and ties on 53. Weighing by one minus NED then adds a small gain on top, since it keeps the weights of the elites nearly equal while still favoring elites with more correct pairs. Against equal weights, it wins on 15 puzzles, loses on 8, and ties on 77. This gain shows up mostly in the geometric mean, because it comes from the hardest puzzles. On these puzzles every elite has a very low Boltzmann probability, but one minus NED still lets the update favor elites with more correct pairs.
+Table~\ref{tab:ablation-objectives} shows an ablation study that compares six pairs of ranking and weighing objectives on Eterna100 with $N=500$. We see that most of the gain comes from ranking by Boltzmann probability. Ranking by Boltzmann probability wins against the best pair that ranks by NED on 43 puzzles, loses on 4, and ties on 53, where a tie means that the two probabilities are within 1\% of each other. Weighing by one minus NED then adds a small gain on top, since it keeps the weights of the elites nearly equal while still favoring elites with more correct pairs. Against equal weights, it wins on 15 puzzles, loses on 8, and ties on 77. This gain shows up mostly in the geometric mean, because it comes from the hardest puzzles. On these puzzles every elite has a very low Boltzmann probability, but one minus NED still lets the update favor elites with more correct pairs.
 
 \subsection{Future work}\label{sec:future}
 \begin{enumerate}
 \item Future work could add a local refinement stage similar to SAMFEO~\citep{zhou2023},
 which might further improve NED and Boltzmann probability on some structures.
-\item Because the objectives are interchangeable, EliteDesign can be applied to other objectives and to other design problems such as mRNA design~\citep{zhang2023}.
+\item EliteDesign can also be applied to other objectives and to other design problems such as mRNA design~\citep{zhang2023}, since its objectives are interchangeable.
 \item Designs still need laboratory testing.
 \end{enumerate}

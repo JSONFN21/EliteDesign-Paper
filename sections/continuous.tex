@@ -1,6 +1,6 @@
 Previously, RNA design was mostly approached with local search methods such as SAMFEO~\citep{zhou2023} and NEMO~\citep{portela2018}. These methods hold on to a few candidate sequences and improve them through small mutations. However, the design space grows exponentially with length, so these mutations can only reach a tiny part of it.
 
-To address this, \citet{matthies2023} replaced the candidate sequences with a probability distribution over sequences, which is optimized with gradient descent. SamplingDesign~\citep{tang2026} then restricted this distribution, which they write as $\py(\cdot)$, to the valid design space $\GENX(\vecystar)$. Their goal is then to minimize the expected value \obj of the objective function $f(\vecx,\vecystar)$ under the distribution, which they approximate with an average over a set of sampled sequences \SAMPLES.
+To address this, \citet{matthies2023} replaced the candidate sequences with a probability distribution over sequences, which is optimized with gradient descent. SamplingDesign~\citep{tang2026} then restricted this distribution, which they write as $\py(\cdot)$, to the valid design space $\GENX(\vecystar)$. Their goal is then to optimize the expected value \obj of the objective function $f(\vecx,\vecystar)$ under the distribution, which they approximate with an average over a set of sampled sequences \SAMPLES.
 \begin{equation}
 \obj\defeq\E_{\vecx\sim\py(\cdot)}\left[f(\vecx,\vecystar)\right]\approx\frac{1}{|\SAMPLES|}\sum_{\vecx\in\SAMPLES}f(\vecx,\vecystar).
 \label{eq:minimize}

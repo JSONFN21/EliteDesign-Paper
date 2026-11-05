@@ -81,9 +81,9 @@ We use this equation to compare $\MFE(\vecx)$, the MFE structure of \vecx, with 
 A sequence with a structural distance of 0 or a free energy gap of 0 is an MFE solution, but that does not guarantee a uMFE solution, because another structure can have the same free energy as \vecystar.
 
 \subsection{Objective function}\label{sec:statement}
-During optimization, any of these metrics (Boltzmann probability, NED, structural distance, and free energy gap), or any other relevant metric, can be used as an objective function $f(\vecx,\vecystar)$. RNA design is then the search for
+During optimization, any of these metrics (Boltzmann probability, NED, structural distance, and free energy gap), or any other relevant metric, can be used as an objective function $f(\vecx,\vecystar)$, where we take higher values to be better. RNA design is then the search for
 \begin{equation}
-\vecxstar=\argmin_{\vecx\in\GENX(\vecystar)}f(\vecx,\vecystar).
+\vecxstar=\argmax_{\vecx\in\GENX(\vecystar)}f(\vecx,\vecystar).
 \label{eq:design}
 \end{equation}
-When Boltzmann probability is used, optimization is typically done in log space to avoid overflow, since partition functions are very large in magnitude.
+For metrics where lower is better, such as NED, $f$ is their negative. When Boltzmann probability is used, optimization is typically done in log space to avoid overflow, since partition functions are very large in magnitude.
