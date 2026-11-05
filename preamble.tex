@@ -15,7 +15,13 @@
 \usepackage{stfloats}\fnbelowfloat
 \usepackage{amsmath,mathtools,amssymb,bm,booktabs,array,float,titlesec,placeins,algorithm,tikz,graphicx,enumitem,caption}
 \usepackage[noend]{algpseudocode}
-\usetikzlibrary{arrows.meta}
+\algrenewcommand\alglinenumber[1]{#1:}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+\definecolor{samfeoblue}{RGB}{65,117,174}
+\definecolor{elitegreen}{RGB}{56,126,56}
 \usepackage{xspace}
 \usepackage{multirow}
 
@@ -77,7 +83,11 @@
 \exhyphenpenalty=50
 \tolerance=1000
 \hyphenation{Elite-Design Sampling-Design Linear-Partition Lazy-Outside Linear-Decompose Linear-Design Vienna-RNA SAMFEO NEMO Eterna}
-\raggedbottom
+\flushbottom
+\hyphenpenalty=5000
+\exhyphenpenalty=5000
+\setlength{\emergencystretch}{1.5em}
+\hyphenation{EliteDesign SamplingDesign LinearPartition ViennaRNA LinearFold LinearDecompose}
 \clubpenalty=10000
 \widowpenalty=10000
 \displaywidowpenalty=10000

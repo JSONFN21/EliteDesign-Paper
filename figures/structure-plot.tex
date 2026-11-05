@@ -1,7 +1,7 @@
 \begin{figure}[t]
 \centering
-\begin{tikzpicture}[
-  x=1.22cm,y=1.22cm,
+\begin{tikzpicture}[baseline=(current bounding box.center),
+  x=0.85cm,y=0.85cm,
   base/.style={circle,fill=white,line width=1.4pt,
     minimum size=0.42cm,inner sep=1pt,font=\normalsize\bfseries,text=black},
   position/.style={font=\normalsize\bfseries,text=black}
@@ -19,7 +19,7 @@
 \node[font=\normalsize\bfseries,text=black,fill=white,inner sep=1pt]
   at (0,-0.32) {$v_1$};
 \node[font=\normalsize\bfseries,text=black,fill=white,inner sep=1pt]
-  at (0,1.46) {$v_3$};
+  at (0,1.40) {$v_3$};
 \node[font=\normalsize\bfseries,text=black] at (0.66,0.85) {$v_2$};
 \node[font=\normalsize\bfseries,text=black] at (0,2.681) {$v_4$};
 \node[base,draw=varonecolor] (n1) at (-0.5,0) {G};
@@ -32,23 +32,21 @@
 \node[base,draw=vartwocolor] (n8) at (1.431,1.365) {U};
 \node[base,draw=vartwocolor] (n9) at (1.431,0.365) {C};
 \node[base,draw=varonecolor] (n10) at (0.5,0) {C};
-\node[position] at (-0.5,-0.37) {1};
-\node[position] at (-1.37,0.865) {2};
-\node[position] at (-0.88,1.7) {3};
-\node[position] at (-1.18,2.72) {4};
-\node[position] at (0,3.64) {5};
-\node[position] at (1.18,2.72) {6};
-\node[position] at (0.84,1.98) {7};
-\node[position] at (1.8,1.365) {8};
-\node[position] at (1.8,0.365) {9};
-\node[position] at (0.5,-0.37) {10};
-\node[font=\normalsize\bfseries] at (-1.02,-0.08) {$5'$};
-\node[font=\normalsize\bfseries] at (1.02,-0.08) {$3'$};
-\end{tikzpicture}
-\smallskip
-
+\node[position] at (-0.50,-0.62) {1};
+\node[position] at (-1.62,0.86) {2};
+\node[position] at (-1.12,1.68) {3};
+\node[position] at (-1.43,2.75) {4};
+\node[position] at (0.00,3.89) {5};
+\node[position] at (1.43,2.75) {6};
+\node[position] at (1.00,2.10) {7};
+\node[position] at (2.05,1.36) {8};
+\node[position] at (2.05,0.36) {9};
+\node[position] at (0.50,-0.62) {10};
+\node[font=\normalsize\bfseries] at (-1.12,0.02) {$5'$};
+\node[font=\normalsize\bfseries] at (1.12,0.02) {$3'$};
+\end{tikzpicture}\hspace{0.6em}
 {\normalsize
-\begin{tabular}{@{}c@{\,}r@{\quad}l@{\quad}l@{}}
+\begin{tabular}[c]{@{}c@{\,}r@{\enspace}l@{\enspace}l@{}}
 \textcolor{varonecolor}{\rule{0.65em}{0.65em}} & $v_1$ & Pair & $(1,10)$\\
 \textcolor{vartwocolor}{\rule{0.65em}{0.65em}} & $v_2$ & Trimismatch & $(2,8,9)$\\
 \textcolor{varthreecolor}{\rule{0.65em}{0.65em}} & $v_3$ & Pair & $(3,7)$\\

@@ -64,12 +64,9 @@ d(\vecy,\vecy')\defeq{}&|\vecy|-2\cdot|\pairs(\vecy)\cap\pairs(\vecy')|\\
 \end{aligned}
 \label{eq:dist}
 \end{equation}
-We use this equation to compare $\MFE(\vecx)$, the MFE structure of \vecx, with \vecystar, the target structure for which we are optimizing. The second metric is the free energy gap. It measures the difference between the free energy of \vecystar and the free energy of $\MFE(\vecx)$.
+We use this equation to compare $\MFE(\vecx)$, the MFE structure of \vecx, with \vecystar, the target structure for which we are optimizing. The second metric is the free energy gap. It measures the difference between the free energy of \vecystar and the free energy of $\MFE(\vecx)$, which is never negative.
 \begin{equation}
-\begin{aligned}
-\DDG(\vecx,\vecystar)\defeq{}&\freeenergy(\vecx,\vecystar)\\
-&-\freeenergy(\vecx,\MFE(\vecx))\geq 0.
-\end{aligned}
+\DDG(\vecx,\vecystar)\defeq\freeenergy(\vecx,\vecystar)-\freeenergy(\vecx,\MFE(\vecx)).
 \label{eq:ddg}
 \end{equation}
 A sequence with a structural distance of 0 or a free energy gap of 0 is an MFE solution, but that does not guarantee a uMFE solution, because another structure can have the same free energy as \vecystar.

@@ -1,4 +1,4 @@
-\begin{table}[t]
+\begin{table}[!tb]
 \centering
 \renewcommand{\arraystretch}{1.06}
 \setlength{\tabcolsep}{5pt}
@@ -10,9 +10,9 @@ $p(\vecystar\mid\vecx)$ & $1{-}\NED$ & .6105 & \textbf{.5825} & \textbf{.0302} \
 $p(\vecystar\mid\vecx)$ & equal & \textbf{.6108} & .5783 & .0303 \\
 $p(\vecystar\mid\vecx)$ & $p(\vecystar\mid\vecx)$ & .6081 & .5678 & .0307 \\
 \midrule
-NED & $p(\vecystar\mid\vecx)$ & .5898 & .4589 & .0303 \\
-NED & equal & .5856 & .2895 & .0311 \\
-NED & $1{-}\NED$ & .5824 & .2228 & .0314 \\
+$1{-}\NED$ & $p(\vecystar\mid\vecx)$ & .5898 & .4589 & .0303 \\
+$1{-}\NED$ & equal & .5856 & .2895 & .0311 \\
+$1{-}\NED$ & $1{-}\NED$ & .5824 & .2228 & .0314 \\
 \bottomrule
 \end{tabular}
 \caption{Ablation study with different choices of objectives on Eterna100 with $N=500$. Mean and Geo. are the mean and geometric mean of \mbox{$p(\vecystar\mid\vecx)$}. The first row is the default used in EliteDesign.}

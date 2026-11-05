@@ -1,14 +1,14 @@
 In this work, we introduced EliteDesign, an RNA design framework that uses the
 gradient-free cross-entropy method to find high-probability RNA sequences for a given target structure.
 Our method beats the state-of-the-art SamplingDesign on Eterna100 in both
-speed and quality, and we show large gains over SAMFEO on ten 16S
-rRNA targets while remaining much faster per puzzle. We further show that this method addresses a gap in current RNA design
+speed and quality, and we show large gains over SAMFEO on the ten
+16S-MFE targets while remaining much faster per puzzle. We further show that this method addresses a gap in current RNA design
 methods by enabling the design of sequences longer than 1,000 nucleotides with relatively high
 Boltzmann probability compared with other methods. We also show that our
 method achieves higher Boltzmann probability on other RNA design datasets such as Rfam~\citep{taneda2011,kalvari2021}
 and RNAsolo~\citep{adamczyk2022}.
 
-\subsection{Why EliteDesign works}\label{sec:why}
+\subsection{Why EliteDesign works better}\label{sec:why}
 EliteDesign keeps the backbone of SamplingDesign by searching for a high-probability sequence with a distribution over the design space. However, it changes how this distribution learns. SamplingDesign averages a gradient over all of its samples and takes a small step, whereas EliteDesign focuses on learning from the best samples and moves the distribution strongly toward them in one update. As a result, it needs far fewer scoring calls to LinearPartition. For example, on Eterna100 with $N=500$, EliteDesign samples about 61,000 sequences on average and takes about 120 rounds, whereas SamplingDesign samples about 4.35 million sequences and takes about 1,740 rounds.
 
 EliteDesign also optimizes two objectives (Eq.~\ref{eq:pair}), and either one can be replaced without changing the algorithm. Since neither needs a gradient, it does not need to be differentiable.
@@ -31,13 +31,9 @@ Despite these gains, our work has some limitations.
 Table~\ref{tab:ablation-objectives} shows an ablation study that compares six pairs of ranking and weighing objectives on Eterna100 with $N=500$. We see that most of the gain comes from ranking by Boltzmann probability. Ranking by Boltzmann probability wins against the best pair that ranks by NED on 43 puzzles, loses on 4, and ties on 53. Weighing by one minus NED then adds a small gain on top, since it keeps the weights of the elites nearly equal while still favoring elites with more correct pairs. Against equal weights, it wins on 15 puzzles, loses on 8, and ties on 77. This gain shows up mostly in the geometric mean, because it comes from the hardest puzzles. On these puzzles every elite has a very low Boltzmann probability, but one minus NED still lets the update favor elites with more correct pairs.
 
 \subsection{Future work}\label{sec:future}
-We see several directions for extending this work.
 \begin{enumerate}
 \item Future work could add a local refinement stage similar to SAMFEO~\citep{zhou2023},
 which might further improve NED and Boltzmann probability on some structures.
 \item Because the objectives are interchangeable, EliteDesign can be applied to other objectives and to other design problems such as mRNA design~\citep{zhang2023}.
-\item The designs are only scored with a thermodynamic model, so they still need to be tested in the laboratory.
+\item Designs still need laboratory testing.
 \end{enumerate}
-
-%\subsection{Code availability}\label{sec:code}
-Our code is available at \url{https://github.com/JSONFN21/EliteDesign}.

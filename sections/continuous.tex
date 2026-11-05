@@ -1,32 +1,23 @@
 \subsection{Coupled-variable Distributions}\label{sec:relaxation}
 Previously, RNA design was mostly approached with local search methods such as SAMFEO~\citep{zhou2023} and NEMO~\citep{portela2018}. These methods hold on to a few candidate sequences and improve them through small mutations. However, the design space grows exponentially with length, so these mutations can only reach a tiny part of it.
 
-To address this, \citet{matthies2023} replaced the candidate sequences with a probability distribution over sequences, which is optimized with gradient descent. SamplingDesign~\citep{tang2026} then restricted this distribution, which they write as $\py(\cdot)$, to the valid design space $\GENX(\vecystar)$. Their goal is then to minimize the expected value of the objective function $f(\vecx,\vecystar)$ under the distribution.
+To address this, \citet{matthies2023} replaced the candidate sequences with a probability distribution over sequences, which is optimized with gradient descent. SamplingDesign~\citep{tang2026} then restricted this distribution, which they write as $\py(\cdot)$, to the valid design space $\GENX(\vecystar)$. Their goal is then to minimize the expected value \obj of the objective function $f(\vecx,\vecystar)$ under the distribution, which they approximate with an average over a set of sampled sequences \SAMPLES.
 \begin{equation}
-\min_{\py}\;\obj,\quad\text{where }\obj\defeq\E_{\vecx\sim\py(\cdot)}\left[f(\vecx,\vecystar)\right].
+\obj\defeq\E_{\vecx\sim\py(\cdot)}\left[f(\vecx,\vecystar)\right]\approx\frac{1}{|\SAMPLES|}\sum_{\vecx\in\SAMPLES}f(\vecx,\vecystar).
 \label{eq:minimize}
-\end{equation}
-They approximate this expected value with an average over a set of sampled sequences \SAMPLES.
-\begin{equation}
-\obj\approx\frac{1}{|\SAMPLES|}\sum_{\vecx\in\SAMPLES}f(\vecx,\vecystar).
-\label{eq:expected}
 \end{equation}
 If the distribution puts all of its probability on one sequence \vecx, then \obj equals $f(\vecx,\vecystar)$, so this formula optimizes for that sequence only. The discrete problem in Eq.~\ref{eq:design} is therefore a special case of optimizing over a distribution.
 
-%\subsection{Coupled-variable distributions}\label{sec:variables}
 \input{figures/structure-plot}
 To build this distribution, we turn the target structure into variables. Each variable is a group of positions whose nucleotides are chosen together, which we describe as coupling. We couple positions in the same way as SamplingDesign~\citep{tang2026}, which creates the four types of variables in Fig.~\ref{fig:structureplot}, namely unpaired positions, paired positions, mismatches, and trimismatches (1$\times$2 internal loops), with 4, 6, 16, and 64 choices. Paired positions are coupled so that every sampled pair is valid, and mismatches and trimismatches are coupled because the energy model scores these unpaired nucleotides together. Each variable has its own local distribution, and the probability of a sequence is the product of these local distributions.
 \begin{equation}
-\renewcommand{\arraystretch}{2.25}
-\begin{array}{@{}r@{\;}>{\displaystyle}l@{}}
-\py(\vecx)\defeq & \prod_{\mathrlap{\hspace{-0.75em}i\in\unpaired''(\vecystar)}}\;\pu_i(x_i)\\
-\cdot & \prod_{\mathrlap{\hspace{-0.75em}(i,j)\in\pairs(\vecystar)}}\;\pp_{i,j}(x_ix_j)\\
-\cdot & \prod_{\mathrlap{\hspace{-0.75em}(i,j)\in\mismatches(\vecystar)}}\;\pmm_{i,j}(x_ix_j)\\
-\cdot & \prod_{\mathrlap{\hspace{-0.75em}(i,j,k)\in\trimismatches(\vecystar)}}\;\ptm_{i,j,k}(x_ix_jx_k).
-\end{array}
+\begin{aligned}
+\py(\vecx)\defeq{}&\prod_{i\in V_{\mathrm{u}}}\pu_i(x_i)\prod_{(i,j)\in V_{\mathrm{p}}}\pp_{i,j}(x_ix_j)\\
+\cdot{}&\prod_{(i,j)\in V_{\mathrm{m}}}\pmm_{i,j}(x_ix_j)\prod_{(i,j,k)\in V_{\mathrm{tm}}}\ptm_{i,j,k}(x_ix_jx_k).
+\end{aligned}
 \label{eq:factorization}
 \end{equation}
-Here $\unpaired''(\vecystar)$ holds the unpaired positions that are not in a mismatch or trimismatch. Any sequence drawn from this distribution is in $\GENX(\vecystar)$.
+Here $V_{\mathrm{p}}$, $V_{\mathrm{m}}$, and $V_{\mathrm{tm}}$ hold the pairs, mismatches, and trimismatches of \vecystar, and $V_{\mathrm{u}}$ holds the unpaired positions that are not in a mismatch or trimismatch. Any sequence drawn from this distribution is in $\GENX(\vecystar)$.
 
 \subsection{SamplingDesign and its Inefficiency}\label{sec:samplingdesign}
 SamplingDesign showed that optimizing this distribution produces high-quality designs, but this quality comes at a high computational cost, which is evident from the way it updates the distribution. SamplingDesign uses gradient descent, estimating the gradient of \obj from the sampled sequences at each step~\citep{tang2026}.

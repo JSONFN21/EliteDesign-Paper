@@ -1,4 +1,4 @@
-\begin{figure*}[!p]
+\begin{figure*}[t]
 \centering
 {\sffamily
 \setlength{\tabcolsep}{4pt}
@@ -11,18 +11,18 @@ SamplingDesign & $4.77 \times 10^{-18}$ & 0.134 & 42 & 19.7 & No & No & \\
 \hline
 Probability ceiling & $1.71 \times 10^{-8}$ & --- & --- & --- & --- & --- & --- \\
 \end{tabular}}\\[5pt]
-\includegraphics[width=\linewidth]{figures/structures/legend}\\[3pt]
+\includegraphics[width=0.85\linewidth]{figures/structures/legend}\\[2pt]
 {\sffamily
-\begin{tabular}{@{}c@{\hspace{0.01\linewidth}}c@{\hspace{0.01\linewidth}}c@{}}
+\begin{tabular}{@{}c@{\hspace{0.02\linewidth}}c@{\hspace{0.02\linewidth}}c@{}}
 (b) Target \vecystar & (c) \MFE of EliteDesign ($N=500$) & (d) \MFE of SamplingDesign \\[2pt]
-\raisebox{18pt}{\includegraphics[scale=0.177,trim=36 10 36 36,clip]{figures/structures/target_90}} &
-\includegraphics[scale=0.228,trim=12 36 152 151,clip]{figures/structures/structure_90_elite} &
-\includegraphics[scale=0.228,trim=12 11 3 192,clip]{figures/structures/structure_90_sampling}
-\end{tabular}\\[3pt]
-\begin{tabular}{@{}c@{\hspace{0.02\linewidth}}c@{}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.16,trim=3 24 3 37,clip]{figures/structures/target_90_big}} &
+\raisebox{-0.5\height}{\includegraphics[scale=0.20,trim=4 27 95 151,clip]{figures/structures/structure_90_elite_big}} &
+\raisebox{-0.5\height}{\includegraphics[scale=0.20,trim=4 27 3 193,clip]{figures/structures/structure_90_sampling_big}}
+\end{tabular}\\[4pt]
+\begin{tabular}{@{}c@{\hspace{0.04\linewidth}}c@{}}
 (e) Base-pairing probabilities, EliteDesign ($N=500$) & (f) Base-pairing probabilities, SamplingDesign \\[1pt]
-\includegraphics[width=0.44\linewidth,trim=0 8 0 4,clip]{figures/structures/arcs_90_elite} &
-\includegraphics[width=0.44\linewidth,trim=0 8 0 4,clip]{figures/structures/arcs_90_sampling}
+\includegraphics[width=0.40\linewidth,trim=0 8 0 3,clip]{figures/structures/arcs_90_elite_big} &
+\includegraphics[width=0.40\linewidth,trim=0 8 0 3,clip]{figures/structures/arcs_90_sampling_big}
 \end{tabular}}
 \caption{This figure shows the sequences with the highest Boltzmann probability from EliteDesign ($N=500$) and SamplingDesign on Puzzle \texttt{\#90}, which is a proven undesignable puzzle. (a) The scores of each design and a probability upper bound on $p(\vecystar\mid\vecx)$~\citep{zhou2026}. (b) The target structure \vecystar. (c)--(d) The MFE structure of each design. Nucleotides are colored by positional defect. For these MFE predictions, all pairs also belong to \vecystar, and the shade of blue indicates the probability, with darker being higher. (e)--(f) Base-pairing probabilities, where blue arcs are the pairs that match between a structure $\vecy'$ in the ensemble and \vecystar, orange arcs are matching pairs with a probability under 0.1, and red arcs are the pairs of $\vecy'$ that do not match \vecystar. Darker arcs have higher probability.}
 \label{fig:eterna-structure-90}

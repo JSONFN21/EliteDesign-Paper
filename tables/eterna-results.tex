@@ -14,16 +14,16 @@
 & \shortstack{\textbf{MFE/}\\\textbf{uMFE} $\uparrow$}
 & \shortstack{\textbf{Time per}\\\textbf{structure}\\\textbf{(s)} $\downarrow$} \\
 \midrule 
-EliteDesign & 100 & 0.6032 & 0.5601 & 0.03145 & 1.62 & 0.525 & 78/74 & \textbf{4.21} \\
-EliteDesign & 500 & \textbf{0.6105} & \textbf{0.5825} & \textbf{0.03015} & \textbf{1.50} & \textbf{0.5024} & \textbf{81}/\textbf{77} & 11.99 \\
+EliteDesign & 100 & 0.603 & 0.560 & 0.031 & 1.62 & 0.53 & 78/74 & \textbf{4.21} \\
+EliteDesign & 500 & \textbf{0.611} & \textbf{0.583} & \textbf{0.030} & \textbf{1.50} & \textbf{0.50} & \textbf{81}/\textbf{77} & 11.99 \\
 \midrule
-SamplingDesign & 2500 & 0.5950 & 0.5225 & 0.03518 & 2.15 & 0.72 & 80/76 & 2133 \\
-SAMFEO & - & 0.581\phantom{0} & 0.167 & 0.043 & 4.57 & 2.48 & 77/74 & --- \\
+SamplingDesign & 2500 & 0.595 & 0.522 & 0.035 & 2.15 & 0.72 & 80/76 & 2133 \\
+SAMFEO & - & 0.581 & 0.167 & 0.043 & 4.57 & 2.48 & 77/74 & --- \\
 NEMO & - & 0.271 & 0.083 & 0.098 & 1.93 & 1.31 & 79/\textbf{77} & --- \\
 \midrule
-Probability ceiling & - & 0.7406 & 0.8545 & --- & --- & --- & --- & --- \\
+Probability ceiling & - & 0.741 & 0.855 & --- & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular*}
-\caption{Results on Eterna100. As in SamplingDesign~\citep{tang2026}, we report the best value of each metric across five seeds and all sequences sampled during optimization, so MFE and uMFE count the puzzles where any sampled sequence is a solution. The geometric mean excludes the 18 proven undesignable puzzles. The scores for SamplingDesign, SAMFEO, and NEMO are from \citet{tang2026}. The times compare SamplingDesign with EliteDesign run with minimal bookkeeping, tracking only the best $p(\vecystar\mid\vecx)$ and the best NED.}
+\caption{Results on Eterna100. The probability ceiling is an upper bound on $p(\vecystar\mid\vecx)$ from LinearDecompose~\citep{zhou2026}. As in SamplingDesign~\citep{tang2026}, we report the best value of each metric across five seeds and all sequences sampled during optimization, so MFE and uMFE count the puzzles where any sampled sequence is a solution. The geometric mean excludes the 18 proven undesignable puzzles. The scores for SamplingDesign, SAMFEO, and NEMO are from \citet{tang2026}. The times compare SamplingDesign with EliteDesign run with minimal bookkeeping, tracking only the best $p(\vecystar\mid\vecx)$ and the best NED.}
 \label{tab:eterna-results}
 \end{table*}
