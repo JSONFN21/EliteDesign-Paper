@@ -20,7 +20,7 @@ H(w_{\mathrm{elite}},p)\defeq-\sum_{\vecx\in\ELITES}w_{\mathrm{elite}}(\vecx)\lo
 \end{equation}
 So $p_{\mathrm{elites}}$ is the distribution with the lowest cross-entropy to the weighted elites, which gives the method its name. In the basic method, all elites count equally and $p_{\mathrm{elites}}$ directly becomes the next distribution. However, the cross-entropy method can also work with weighted elites and smoothed updates, as discussed in \citet{deboer2005}. We apply the method in this way, by weighing the elites (Sec.~\ref{sec:elites}) and smoothing the update (Sec.~\ref{sec:update}).
 
-The cross-entropy method is a good candidate for the RNA design problem because this update is simple. Our distribution is a product of independent local distributions (Eq.~\ref{eq:factorization}), so for each variable, the new probability of a choice is the summed weight of the elites that made it. No gradient is needed, and one update can make a large shift to the distribution.
+The cross-entropy method is a good candidate for the RNA design problem because this update is simple. Our distribution is a product of independent local distributions (Eq.~\ref{eq:factorization}), so for each variable, the new probability of a choice is the summed weight of the elites that made it.
 
 \subsection{Objective functions}\label{sec:objectives}
 In EliteDesign, we take advantage of the fact that the cross-entropy method can apply more than one objective function. We use one objective, \frank, to rank the samples and select the elites, and a second objective, \fweight, to weigh the elites. This allows us to optimize for two different objectives at the same time, where higher is better for both.
