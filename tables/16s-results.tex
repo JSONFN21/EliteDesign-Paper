@@ -4,9 +4,9 @@
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lccccc@{}}
 \toprule
-& & \multicolumn{2}{c}{$p(\vecystar\mid\vecx)$ $\uparrow$} & & Time \\
+& & \multicolumn{2}{c}{$p(\vecystar\mid\vecx)$ $\uparrow$} & & Time per \\
 \cmidrule(lr){3-4}
-\textbf{Method} & $N$ & Mean & Geo. & NED $\downarrow$ & (min) $\downarrow$ \\
+\textbf{Method} & $N$ & Mean & Geo. & NED $\downarrow$ & \shortstack{target\\(min) $\downarrow$} \\
 \midrule
 EliteDesign & 100 & 0.510 & 0.480 & 0.0013 & \textbf{39.4} \\
 EliteDesign & 500 & \textbf{0.520} & \textbf{0.491} & \textbf{0.0012} & 66.0 \\
@@ -14,6 +14,6 @@ EliteDesign & 500 & \textbf{0.520} & \textbf{0.491} & \textbf{0.0012} & 66.0 \\
 SAMFEO & --- & 0.202 & 0.141 & 0.0036 & 946 \\
 \bottomrule
 \end{tabular}
-\caption{Results on 16S-MFE, averaged over the ten targets. Time is per target, and SAMFEO's times are from \citet{zhou2026fastdesign}.}
+\caption{Results on 16S-MFE, averaged over the ten targets.}
 \label{tab:16s-results}
 \end{table}
