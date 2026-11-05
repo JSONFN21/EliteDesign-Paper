@@ -2,14 +2,14 @@
 \centering
 \pgfplotsset{
   every axis/.append style={font=\normalsize},
-  every tick label/.append style={font=\normalsize},
-  every axis label/.append style={font=\normalsize},
+  every tick label/.append style={font=\normalsize\bfseries\boldmath},
+  every axis label/.append style={font=\normalsize\bfseries\boldmath},
 }
 \begin{tikzpicture}
 \begin{groupplot}[
   group style={group size=2 by 1, horizontal sep=1.9cm},
   width=0.47\textwidth, height=5.6cm,
-  xmin=0.4, xmax=10.6, xtick={1,...,10}, xlabel={Target},
+  xmin=0.4, xmax=10.6, xtick={1,...,10}, xticklabels={950,954,{1,200},{1,452},{1,474},{1,474},{1,490},{1,492},{1,497},{1,525}}, xticklabel style={font=\small\bfseries\boldmath,rotate=45,anchor=north east,inner sep=1pt}, xlabel={Target length (nt)},
   tick align=outside, tick pos=left, grid=major, grid style={gray!20},
   unbounded coords=jump,
   ylabel near ticks, ylabel shift=-2pt,
@@ -49,6 +49,6 @@
 \node[anchor=south east,inner sep=0pt] at ($(group c2r1.north east)+(0,0.15cm)$) {(b) Time};
 \node[anchor=south,inner sep=0pt] at ($(group c1r1.north west)!0.5!(group c2r1.north east)+(0,0.15cm)$) {\pgfplotslegendfromname{leg16s}};
 \end{tikzpicture}
-\caption{Boltzmann probability (a) and time per target in minutes on a log scale (b) on the ten 16S-MFE targets, numbered by length from 950 to 1,525 nucleotides, for SAMFEO (blue) and EliteDesign with $N=500$ (green). EliteDesign has a higher Boltzmann probability and a shorter time than SAMFEO on every target.}
+\caption{Boltzmann probability (a) and time per target in minutes on a log scale (b) on the ten \sixteenS{} targets, labeled by their length in nucleotides, for SAMFEO (blue) and EliteDesign with $N=500$ (green). EliteDesign has a higher Boltzmann probability and a shorter time than SAMFEO on every target.}
 \label{fig:16s}
 \end{figure*}
