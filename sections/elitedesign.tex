@@ -1,14 +1,14 @@
 \input{figures/sampling-loop}
 
 \subsection{The cross-entropy method}\label{sec:cem}
-The cross-entropy method~\citep{rubinstein1999,deboer2005} is a gradient-free optimization method that was initially developed for rare-event simulation and later applied to optimization problems. It repeats two steps, sampling candidates from a distribution and then moving the distribution toward the best candidates.
+The cross-entropy method~\citep{rubinstein1999,deboer2005} is a {\em gradient-free} optimization method that was initially developed for rare-event simulation and later applied to optimization problems. It repeats two steps, sampling candidates from a distribution and then moving the distribution toward the best candidates.
 
 For the second step, let \ELITES be the set of elites, which are the best sequences in the current sample, and give each elite $\vecx\in\ELITES$ a weight $w_{\mathrm{elite}}(\vecx)$. The method forms the distribution $p_{\mathrm{elites}}$ under which the weighted elites are most likely,
 \begin{equation}
 p_{\mathrm{elites}}=\argmax_{p}\sum_{\vecx\in\ELITES}w_{\mathrm{elite}}(\vecx)\log p(\vecx),
 \label{eq:cefit}
 \end{equation}
-which is the distribution with the lowest cross-entropy to the elite weights, and can also be written as
+which is the distribution with the lowest cross-entropy to the elite weights, and can  be rewritten as
 \begin{equation}
 p_{\mathrm{elites}}=\argmin_{p}H(w_{\mathrm{elite}},p).
 \label{eq:crossentropy}
