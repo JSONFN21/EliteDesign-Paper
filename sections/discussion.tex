@@ -27,6 +27,7 @@ Despite these gains, our work has some limitations.
 \item The probability ceiling shows that room remains on many targets, for example on Snowflake 4, where EliteDesign reaches 47\% of the ceiling. However, a large gap can come either from the design or from a loose bound, so it does not prove that a better sequence exists.
 \end{enumerate}\par}
 
+\Needspace{8\baselineskip}
 \subsection{Ablation study}\label{sec:ablation}
 \input{tables/ablation-objectives}
 Table~\ref{tab:ablation-objectives} shows an ablation study that compares six pairs of ranking and weighing objectives on Eterna100 with $N=500$. We see that most of the gain comes from ranking by Boltzmann probability. Ranking by Boltzmann probability wins against the best pair that ranks by NED on 43 puzzles, loses on 4, and ties on 53, where a tie means that the two probabilities are within 1\% of each other. Weighing by one minus NED then adds a small gain on top, since it keeps the weights of the elites nearly equal while still favoring elites with more correct pairs. Against equal weights, it wins on 15 puzzles, loses on 8, and ties on 77. This gain shows up mostly in the geometric mean, because it comes from the hardest puzzles. On these puzzles every elite has a very low Boltzmann probability, but one minus NED still lets the update favor elites with more correct pairs.

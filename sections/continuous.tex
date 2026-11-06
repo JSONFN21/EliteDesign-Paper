@@ -1,4 +1,4 @@
-Previously, RNA design was mostly approached with local search methods such as SAMFEO~\citep{zhou2023} and NEMO~\citep{portela2018}. These methods hold on to a few candidate sequences and improve them through small mutations. However, the design space grows exponentially with length, so these mutations can only reach a tiny part of it.
+Previously, RNA design was mostly approached with local search methods such as SAMFEO~\citep{zhou2023} and NEMO~\citep{portela2018}. These methods hold on to a few candidate sequences and improve them through local mutations. However, the design space grows exponentially with length, so these mutations can only reach a tiny part of it.
 
 To address this, \citet{matthies2023} replaced the candidate sequences with a probability distribution over sequences, which is optimized with gradient descent. SamplingDesign~\citep{tang2026} then restricted this distribution, which they write as $\py(\cdot)$, to the valid design space $\GENX(\vecystar)$. Their goal is then to optimize the expected value \obj of the objective function $f(\vecx,\vecystar)$ under the distribution, which they approximate with an average over a set of sampled sequences \SAMPLES.
 \begin{equation}
@@ -11,19 +11,16 @@ If the distribution puts all of its probability on one sequence \vecx, then \obj
 
 \subsection{Coupled-variable Distributions}\label{sec:relaxation}
 
-\citet{matthies2023} used a simple distribution that is the product of independent distributions in each position, but most sequences in this method is invalid with respect to the pairing constraints in \vecystar (cf.~Eq.~\ref{eq:genxsize}).
-%To build this distribution, we turn the target structure into variables. Each variable is a group of positions whose nucleotides are chosen together, which we describe as coupling. 
+\citet{matthies2023} used a simple distribution that is the product of independent distributions in each position, but most sequences in this method are invalid with respect to the pairing constraints in \vecystar (cf.~Eq.~\ref{eq:genxsize}).
 In order to establish a distribution over the valid design space
 $\GENX(\vecystar)$,
 we adopt the ``coupled-variable'' idea 
-%couple positions in the same way as 
-from SamplingDesign~\citep{tang2026}, which couples a base-pair in \vecystar as one variable over the 6 pair types in \pairset,
-instead of %as opposed to
+from SamplingDesign~\citep{tang2026}, which couples a base pair in \vecystar as one variable over the 6 pair types in \pairset,
+instead of
  $4\times 4$ choices.
 Besides, mismatches and trimismatches are also coupled because the energy model scores these unpaired nucleotides together. 
-In total we have %creates the 
-four types of variables in Fig.~\ref{fig:structureplot}, namely unpaired positions, paired positions, mismatches, and trimismatches (1$\times$2 internal loops), with 4, 6, 16, and 64 choices. %Paired positions are coupled so that every sampled pair is valid, and 
-%Each variable has its own local distribution, and 
+In total we have
+four types of variables in Fig.~\ref{fig:structureplot}, namely unpaired positions, paired positions, mismatches, and trimismatches (1$\times$2 internal loops), with 4, 6, 16, and 64 choices.
 The probability of a sequence is the product of these local distributions.
 \begin{equation}
 \begin{aligned}
@@ -33,10 +30,9 @@ The probability of a sequence is the product of these local distributions.
 \label{eq:factorization}
 \end{equation}
 Here $V_{\mathrm{p}}$, $V_{\mathrm{m}}$, and $V_{\mathrm{tm}}$ hold the pairs, mismatches, and trimismatches of \vecystar, and $V_{\mathrm{u}}$ holds the unpaired positions that are not in a mismatch or trimismatch. 
-%Any sequence drawn from 
 The support of this distribution is exactly $\GENX(\vecystar)$.
 
-\subsection{SamplingDesign and its Inefficiency}\label{sec:samplingdesign}
+\subsection{The Inefficiency of SamplingDesign}\label{sec:samplingdesign}
 SamplingDesign showed that optimizing this distribution produces high-quality designs, but this quality comes at a high computational cost, which is evident from the way it updates the distribution. SamplingDesign uses gradient descent, estimating the gradient of \obj from the sampled sequences at each step~\citep{tang2026}.
 \begin{equation}
 \nabla_{\py}\obj^{(t)}\approx\frac{1}{|\SAMPLES|}\sum_{\vecx\in\SAMPLES}\nabla_{\py}\log\py(\vecx)\,f(\vecx,\vecystar).
@@ -44,4 +40,4 @@ SamplingDesign showed that optimizing this distribution produces high-quality de
 \end{equation}
 This estimated gradient is an average over all samples, so every sample must be scored at each step ($|\SAMPLES|=2500$ by default). Scoring a sample means running LinearPartition~\citep{zhang2020} on it, and this accounts for over 99\% of SamplingDesign's runtime~\citep{tang2026}, because scoring a large number of sequences is expensive even though LinearPartition itself is efficient. The gradient also only gives a direction, so the distribution moves a small amount at each step (a learning rate of 0.01 with up to 2,000 steps by default). As a result, SamplingDesign takes a long time to run, especially on longer puzzles, where a single step can take over 20 seconds~\citep{tang2026}.
 
-In other words, the runtime of SamplingDesign depends heavily on the number of sequences scored, rather than on computing the gradient itself. This motivates the question of whether a distribution can learn from fewer samples and larger updates, possibly without a gradient at all.
+In other words, the runtime of SamplingDesign depends heavily on the number of sequences scored, because estimating the gradient requires scoring every sample at every step. This motivates the question of whether a distribution can learn from fewer samples and larger updates, possibly without a gradient at all.

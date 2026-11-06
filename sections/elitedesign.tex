@@ -68,7 +68,7 @@ After weighing the elites, we get the distribution $p_{\mathrm{elites}}$ of Eq.~
 \pcurrent^{(t+1)}=(1-\alpha)\,\pcurrent^{(t)}+\alpha\,p_{\mathrm{elites}}.
 \label{eq:update}
 \end{equation}
-Here $\alpha$ is the elite update rate, which is set to 0.5 by default in our implementation, so each round moves the distribution halfway to the elites. The main goal of these updates is to move the distribution toward a region in which we are likely to find the best sequence.
+Here $\alpha$ is the elite update rate, which we set to 0.5 by default, so each round moves the distribution halfway to the elites. The main goal of these updates is to move the distribution toward a region in which we are likely to find the best sequence.
 
 At each round, we track two quantities, the highest value of the ranking objective \frank seen so far, and the mean value of \frank over the sample, averaged over the last $h$ rounds. We call $h$ the patience. We stop when both of the following conditions hold, or when a limit on rounds or scored sequences is reached.
 \begin{enumerate}

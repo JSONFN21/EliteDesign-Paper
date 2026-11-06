@@ -2,7 +2,7 @@ The goal of RNA design is to find, within an exponentially large sequence
 space, a nucleotide sequence that folds into a specified target structure.
 While essential for developing functional RNAs such as riboswitches and ribozymes,
 efficiently identifying sequences with high Boltzmann probability remains challenging,
-especially for long sequences. Currently, the state-of-the-art method, SamplingDesign, is notoriously slow, %computationally very expensive,
+especially for long sequences. Currently, the state-of-the-art method, SamplingDesign, is notoriously slow,
 because its gradient-based optimization takes many small steps and scores thousands of samples at each step.
 To address this bottleneck, we present EliteDesign, a novel and simple framework that leverages the
 {\em gradient-free} cross-entropy method to iteratively refine a distribution over candidate RNA sequences.

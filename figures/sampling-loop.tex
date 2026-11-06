@@ -20,7 +20,7 @@
 \draw[flow] (eval) -- (sel);
 \draw[flow] (sel) -- (upd);
 \draw[flow] (upd.south) -- ++(0,-0.95) -| (gen.south);
-\draw[flow] (upd) -- node[above=1.5mm,font=\fontsize{15.5}{18}\selectfont\sffamily\bfseries,text=black!65]{converged} (ret);
+\draw[flow] (upd) -- node[pos=.58,above=1.5mm,font=\fontsize{13}{15}\selectfont\sffamily\bfseries,text=black!65]{converged} (ret);
 \end{tikzpicture}}
 \caption{Overview of EliteDesign, which follows the cross-entropy method. Each round samples sequences from the current distribution, scores them, and moves the distribution toward the best ones.}
 \label{fig:loop}

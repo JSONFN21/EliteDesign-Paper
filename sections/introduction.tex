@@ -21,11 +21,9 @@ SAMFEO maintains several promising sequences and uses structure-aware mutations 
 but it struggles on difficult and long targets, where the enormous design space
 makes local search prone to getting stuck in local optima.
 On the other hand, SamplingDesign~\citep{tang2026} produces high-quality designs, even for difficult puzzles in
-the Eterna100 benchmark set~\citep{andersonlee2016}, by running gradient descent on a distribution over the valid sequences, but it is %computationally expensive and 
+the Eterna100 benchmark set~\citep{andersonlee2016}, by running gradient descent on a distribution over the valid sequences, but it is
 much too slow to be practical for
-longer RNAs. Finding a high-probability sequence within efficiency
-%a practical runtime 
-remains a major challenge.
+longer RNAs. Finding a high-probability sequence efficiently remains a major challenge.
 
 To address this bottleneck, we present EliteDesign, a gradient-free method that uses the cross-entropy method~\citep{rubinstein1999,deboer2005} to
 find RNA sequences that fold to a user-specified secondary structure with high Boltzmann probability
@@ -37,9 +35,9 @@ set. During the sampling rounds, sequences are scored with LinearPartition~\cite
 which estimates Boltzmann probability in linear time, and the best final candidates are
 rescored exactly with ViennaRNA~\citep{lorenz2011}.
 
-We benchmark EliteDesign on several datasets and show that it finds higher Boltzmann probabilities than state-of-the-art methods %we compare against, 
+We benchmark EliteDesign on several datasets and show that it finds higher Boltzmann probabilities than state-of-the-art methods
 with the gap widening on
 long RNA sequences. These results show that EliteDesign improves both design quality and
-runtime,% compared with methods that optimize Boltzmann probability, 
+runtime,
 and allows us to
 find high-probability sequences for much longer RNA structures.
